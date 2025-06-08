@@ -1,1 +1,3 @@
-// # PrivateLayout: проверка сессии + AppShell (Header + Sidebar)
+export default function PrivateLayout({ children }: { children: React.ReactNode }) {
+  return <div>{children}</div>;
+}
