@@ -1,1 +1,3 @@
-// # PublicLayout: минимальный без Sidebar/Header
+export default function PublicLayout({ children }: { children: React.ReactNode }) {
+  return <div>{children}</div>;
+}
