@@ -1,15 +1,32 @@
 import { Input } from "@/components/ui/Input/Input";
 import { Typography } from "@/components/ui/Typography/Typography";
+import { getDictionary } from "@/lib/dictionaries/server";
 import styles from "./page.module.css";
 
-export default function SignInPage() {
+export default async function SignInPage({
+  params: { lang },
+}: {
+  params: { lang: string };
+}) {
+  const dict = await getDictionary(lang as "en" | "be");
+
   return (
     <div className={styles.wrapper}>
       <form className={styles.form} action="#" method="post">
-        <Typography variant="h1">Sign In</Typography>
-        <Input label="Email" type="email" name="email" required />
-        <Input label="Password" type="password" name="password" required />
-        <button type="submit">Log in</button>
+        <Typography variant="h1">{dict.auth.signin.title}</Typography>
+        <Input
+          label={dict.auth.signin.email}
+          type="email"
+          name="email"
+          required
+        />
+        <Input
+          label={dict.auth.signin.password}
+          type="password"
+          name="password"
+          required
+        />
+        <button type="submit">{dict.auth.signin.submit}</button>
       </form>
     </div>
   );

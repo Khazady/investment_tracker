@@ -23,5 +23,20 @@
     "title": "Dashboard",
     "welcome": "Welcome to your dashboard",
     "summary": "Here you can manage your investments and track your portfolio performance."
+  },
+  "auth": {
+    "signup": {
+      "title": "Sign Up",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Create account"
+    },
+    "signin": {
+      "title": "Sign In",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Log in"
+    }
   }
 } 
