@@ -1,3 +1,5 @@
+'use client';
+
 import { Typography } from "@/components/ui/Typography/Typography";
 import { cn } from "@/lib/utils";
 import { forwardRef, InputHTMLAttributes, useId } from "react";
