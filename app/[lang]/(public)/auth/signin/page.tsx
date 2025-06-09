@@ -1,3 +1,4 @@
+import Button from "@/components/ui/Button/Button";
 import { Input } from "@/components/ui/Input/Input";
 import { Typography } from "@/components/ui/Typography/Typography";
 import { getDictionary } from "@/lib/dictionaries/server";
@@ -26,7 +27,9 @@ export default async function SignInPage({
           name="password"
           required
         />
-        <button type="submit">{dict.auth.signin.submit}</button>
+        <Button type="submit" fullWidth>
+          {dict.auth.signin.submit}
+        </Button>
       </form>
     </div>
   );

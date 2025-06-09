@@ -34,16 +34,3 @@
   background: var(--color-background);
   color: var(--color-foreground);
 }
-
-.form button {
-  padding: var(--space-sm) var(--space-md);
-  background: var(--color-primary);
-  color: var(--color-primary-foreground);
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-}
-
-.form button:hover {
-  opacity: 0.9;
-}

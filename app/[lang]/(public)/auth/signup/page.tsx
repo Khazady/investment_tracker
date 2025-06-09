@@ -1,3 +1,4 @@
+import Button from "@/components/ui/Button/Button";
 import { Input } from "@/components/ui/Input/Input";
 import { Typography } from "@/components/ui/Typography/Typography";
 import { getDictionary } from "@/lib/dictionaries/server";
@@ -32,7 +33,9 @@ export default async function SignUpPage({
           name="confirm"
           required
         />
-        <button type="submit">{dict.auth.signup.submit}</button>
+        <Button type="submit" fullWidth>
+          {dict.auth.signup.submit}
+        </Button>
       </form>
     </div>
   );
