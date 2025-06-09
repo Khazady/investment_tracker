@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import "../styles/variables.css";
 import "../styles/globals.css";
 
 const geistSans = Geist({
@@ -14,10 +15,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Tracker',
-    default: 'Tracker',
+    template: "%s | Tracker",
+    default: "Tracker",
   },
-  description: 'This is a portfolio tracker web application.',
+  description: "This is a portfolio tracker web application.",
 };
 
 export default function RootLayout({
