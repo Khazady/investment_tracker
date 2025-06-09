@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang={lang}>
       <body className={`${fonts.sans.variable} ${fonts.mono.variable}`}>
-        {children}
+        <main>{children}</main>
       </body>
     </html>
   );
