@@ -1,4 +1,24 @@
 :root {
+  --font-geist-sans: 'Geist Sans Variable', sans-serif;
+  --font-geist-mono: 'Geist Mono Variable', monospace;
+
+  /* font family tokens */
+  --font-family-base: var(--font-geist-sans), sans-serif;
+  --font-family-mono: var(--font-geist-mono), monospace;
+
+  /* font sizes */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+
+  /* font weights */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
   /* color tokens */
   --color-background: #ffffff;
   --color-foreground: #171717;
@@ -6,6 +26,7 @@
   --color-primary-foreground: #ffffff;
   --color-muted: #f5f5f5;
   --color-border: #e5e7eb;
+  --color-error: #dc2626;
 
   /* radius tokens */
   --radius-sm: 4px;
@@ -18,10 +39,6 @@
   --space-md: 16px;
   --space-lg: 24px;
   --space-xl: 32px;
-
-  /* backward compatibility */
-  --background: var(--color-background);
-  --foreground: var(--color-foreground);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -32,5 +49,6 @@
     --color-primary-foreground: #000000;
     --color-muted: #1f1f1f;
     --color-border: #2a2a2a;
+    --color-error: #ff6b6b;
   }
 }
