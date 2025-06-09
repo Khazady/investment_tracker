@@ -1,4 +1,4 @@
-import { getDictionary } from '@/lib/dictionaries'
+import { getDictionary } from '@/lib/dictionaries/server'
 
 export default async function Dashboard({
   params: { lang },

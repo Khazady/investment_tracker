@@ -12,7 +12,7 @@ export const signup = async (values: any) => {
 
   try {
     await connectDB();
-    const userFound = getUser({ email });
+    const userFound = await getUser({ email });
     if (userFound) {
       return { error: "Email already exists!" };
     }

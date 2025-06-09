@@ -1,8 +1,8 @@
+import { defaultLocale, locales } from "@/lib/dictionaries/client";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { locales, defaultLocale } from '@/lib/dictionaries';
 
 function getLocale(request: NextRequest) {
   const negotiatorHeaders: Record<string, string> = {};

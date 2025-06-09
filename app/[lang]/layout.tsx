@@ -1,4 +1,4 @@
-import { getDictionary } from "@/lib/dictionaries";
+import { getDictionary } from "@/lib/dictionaries/server";
 import { fonts } from "@/lib/fonts";
 import type { Metadata } from "next";
 import "../../styles/variables.css";
