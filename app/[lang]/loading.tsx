@@ -1,10 +1,3 @@
-import { getDictionary } from "@/lib/dictionaries/server";
-
-export default async function Loading({
-  params: { lang },
-}: {
-  params: { lang: string };
-}) {
-  const dict = await getDictionary(lang as 'en' | 'be');
-  return <p>{dict.loading.message}</p>;
+export default async function Loading() {
+  return <p>Spinner placeholder</p>;
 }
