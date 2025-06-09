@@ -37,6 +37,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         id={`${inputId}-error`}
         role="alert"
         variant="caption"
+        color="error"
         className={styles.errorMessage}
       >
         {error}
@@ -45,6 +46,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <Typography
         id={`${inputId}-hint`}
         variant="caption"
+        color="muted"
         className={styles.hint}
       >
         {hint}

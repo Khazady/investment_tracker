@@ -1,10 +1,9 @@
-/* Эти селекторы должны совпадать с вариантами variant в TSX */
+/* This selectors should match with variant prop in TSX */
 .h1 {
   font-family: var(--font-family-base), sans-serif;
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   line-height: 1.2;
-  color: var(--color-foreground);
 }
 
 .h2 {
@@ -12,15 +11,13 @@
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   line-height: 1.3;
-  color: var(--color-foreground);
 }
 
 .h3 {
   font-family: var(--font-family-base), sans-serif;
   font-size: var(--font-size-md);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-bold);
   line-height: 1.4;
-  color: var(--color-foreground);
 }
 
 .body {
@@ -28,29 +25,46 @@
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-regular);
   line-height: 1.5;
-  color: var(--color-foreground);
 }
 
 .caption {
   font-family: var(--font-family-base), sans-serif;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-regular);
-  line-height: 1.4;
-  color: var(--color-muted);
+  line-height: 1.5;
 }
 
 .label {
   font-family: var(--font-family-base), sans-serif;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  line-height: 1.3;
-  color: var(--color-foreground);
+  line-height: 1.5;
 }
 
 .code {
   font-family: var(--font-family-mono), monospace;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-regular);
-  line-height: 1.4;
+  line-height: 1.5;
+}
+
+/* Color variants */
+.color-foreground {
   color: var(--color-foreground);
+}
+
+.color-primary {
+  color: var(--color-primary);
+}
+
+.color-muted {
+  color: var(--color-muted);
+}
+
+.color-error {
+  color: var(--color-error);
+}
+
+.color-inherit {
+  color: inherit;
 }

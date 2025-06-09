@@ -39,7 +39,6 @@
 
 .hint {
   margin-top: var(--space-xs);
-  color: var(--color-muted);
 }
 
 .error {
@@ -48,5 +47,4 @@
 
 .errorMessage {
   margin-top: var(--space-xs);
-  color: var(--color-error);
 }
