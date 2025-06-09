@@ -1,3 +1,4 @@
+import { Typography } from "@/components/ui/Typography/Typography";
 import { cn } from "@/lib/utils";
 import { forwardRef, InputHTMLAttributes, useId } from "react";
 import styles from "./Input.module.css";
@@ -32,13 +33,22 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     );
 
     const helpText = error ? (
-      <div id={`${inputId}-error`} role="alert" className={styles.errorMessage}>
+      <Typography
+        id={`${inputId}-error`}
+        role="alert"
+        variant="caption"
+        className={styles.errorMessage}
+      >
         {error}
-      </div>
+      </Typography>
     ) : hint ? (
-      <div id={`${inputId}-hint`} className={styles.hint}>
+      <Typography
+        id={`${inputId}-hint`}
+        variant="caption"
+        className={styles.hint}
+      >
         {hint}
-      </div>
+      </Typography>
     ) : null;
 
     if (label) {
@@ -47,7 +57,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           htmlFor={inputId}
           className={cn(styles.label, inline && styles.labelInline)}
         >
-          <span className={styles.labelText}>{label}</span>
+          <Typography variant="label" className={styles.labelText}>
+            {label}
+          </Typography>
           {inputElement}
           {helpText}
         </label>
