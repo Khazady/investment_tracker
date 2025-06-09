@@ -17,6 +17,10 @@ body {
   font-family: var(--font-geist-sans, Arial, Helvetica, sans-serif), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-md);
 }
 
 * {
