@@ -1,0 +1,27 @@
+{
+  "common": {
+    "title": "Tracker",
+    "description": "This is a portfolio tracker web application."
+  },
+  "navigation": {
+    "home": "Home",
+    "portfolio": "Portfolio",
+    "settings": "Settings"
+  },
+  "error": {
+    "title": "An error occurred!",
+    "message": "Something went wrong. Please try again.",
+    "tryAgain": "Try again"
+  },
+  "loading": {
+    "message": "Loading..."
+  },
+  "notFound": {
+    "message": "Page not found."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome to your dashboard",
+    "summary": "Here you can manage your investments and track your portfolio performance."
+  }
+} 
