@@ -42,34 +42,34 @@ export interface TypographyProps extends HTMLAttributes<HTMLElement> {
   align?: TypographyAlign;
 }
 
-export const Typography = forwardRef<HTMLElement, TypographyProps>(
-  function Typography(
-    {
-      variant = "body",
-      color = "foreground",
-      align = "left",
-      className,
-      children,
-      ...props
-    },
-    ref,
-  ) {
-    const Tag = variantTagMap[variant] as ElementType;
-    return (
-      <Tag
-        ref={ref as ForwardedRef<HTMLSpanElement>}
-        className={cn(
-          styles[variant],
-          styles[`color-${color}`],
-          styles[`align-${align}`],
-          className,
-        )}
-        {...props}
-      >
-        {children}
-      </Tag>
-    );
+const Typography = forwardRef<HTMLElement, TypographyProps>(function Typography(
+  {
+    variant = "body",
+    color = "foreground",
+    align = "left",
+    className,
+    children,
+    ...props
   },
-);
+  ref,
+) {
+  const Tag = variantTagMap[variant] as ElementType;
+  return (
+    <Tag
+      ref={ref as ForwardedRef<HTMLSpanElement>}
+      className={cn(
+        styles[variant],
+        styles[`color-${color}`],
+        styles[`align-${align}`],
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </Tag>
+  );
+});
+
+export default Typography;
 
 Typography.displayName = "Typography";

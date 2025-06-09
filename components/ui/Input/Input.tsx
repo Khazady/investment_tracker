@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Typography } from "@/components/ui/Typography/Typography";
+import Typography from "@/components/ui/Typography/Typography";
 import { cn } from "@/lib/utils";
 import { forwardRef, InputHTMLAttributes, useId } from "react";
 import styles from "./Input.module.css";
@@ -16,7 +16,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   inline?: boolean;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, id, error, hint, inline = false, className, ...props }, ref) => {
     const generatedId = useId();
     const inputId = id || generatedId;
@@ -78,5 +78,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     );
   },
 );
+
+export default Input;
 
 Input.displayName = "Input";
