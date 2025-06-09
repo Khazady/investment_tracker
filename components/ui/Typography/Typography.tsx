@@ -24,6 +24,8 @@ export type TypographyColor =
   | "error"
   | "inherit";
 
+export type TypographyAlign = "left" | "center" | "right" | "justify";
+
 const variantTagMap: Record<TypographyVariant, keyof JSX.IntrinsicElements> = {
   h1: "h1",
   h2: "h2",
@@ -37,18 +39,31 @@ const variantTagMap: Record<TypographyVariant, keyof JSX.IntrinsicElements> = {
 export interface TypographyProps extends HTMLAttributes<HTMLElement> {
   variant?: TypographyVariant;
   color?: TypographyColor;
+  align?: TypographyAlign;
 }
 
 export const Typography = forwardRef<HTMLElement, TypographyProps>(
   function Typography(
-    { variant = "body", color = "foreground", className, children, ...props },
+    {
+      variant = "body",
+      color = "foreground",
+      align = "left",
+      className,
+      children,
+      ...props
+    },
     ref,
   ) {
     const Tag = variantTagMap[variant] as ElementType;
     return (
       <Tag
         ref={ref as ForwardedRef<HTMLSpanElement>}
-        className={cn(styles[variant], styles[`color-${color}`], className)}
+        className={cn(
+          styles[variant],
+          styles[`color-${color}`],
+          styles[`align-${align}`],
+          className,
+        )}
         {...props}
       >
         {children}
