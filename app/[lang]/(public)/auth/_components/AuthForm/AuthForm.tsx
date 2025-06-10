@@ -1,8 +1,8 @@
 "use client";
 
 import SubmitButton from "@/components/common/SubmitButton/SubmitButton";
+import ErrorMessage from "@/components/ui/ErrorMessage/ErrorMessage";
 import Input from "@/components/ui/Input/Input";
-import Typography from "@/components/ui/Typography/Typography";
 import { signup } from "@/lib/actions/signup";
 import { useDictionary } from "@/lib/hooks/useDictionary";
 import { useActionState } from "react";
@@ -93,11 +93,8 @@ function AuthForm({ isSignUpPage }: AuthFormProps) {
         />
       )}
 
-      {(state.error || state.message) && (
-        <Typography variant="caption" color="error">
-          {state.error || state.message}
-        </Typography>
-      )}
+      {state.error && <ErrorMessage message={state.error} />}
+      {state.message && <ErrorMessage message={state.message} />}
 
       <SubmitButton
         text={isSignUpPage ? dict.auth.signup.submit : dict.auth.signin.submit}

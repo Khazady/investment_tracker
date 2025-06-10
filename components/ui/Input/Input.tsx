@@ -1,8 +1,10 @@
 "use client";
 
+import ErrorMessage from "@/components/ui/ErrorMessage/ErrorMessage";
 import Typography from "@/components/ui/Typography/Typography";
 import { cn } from "@/lib/utils";
-import { forwardRef, InputHTMLAttributes, useId } from "react";
+import type { InputHTMLAttributes } from "react";
+import { forwardRef, useId } from "react";
 import styles from "./Input.module.css";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -35,15 +37,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     );
 
     const helpText = error ? (
-      <Typography
-        id={`${inputId}-error`}
-        role="alert"
-        variant="caption"
-        color="error"
-        className={styles.errorMessage}
-      >
-        {error}
-      </Typography>
+      <ErrorMessage id={`${inputId}-error`} message={error} />
     ) : hint ? (
       <Typography
         id={`${inputId}-hint`}
