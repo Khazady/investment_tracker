@@ -1,42 +1,19 @@
-import Button from "@/components/ui/Button/Button";
-import { Input } from "@/components/ui/Input/Input";
-import { Typography } from "@/components/ui/Typography/Typography";
+import Typography from "@/components/ui/Typography/Typography";
+import type { Locale } from "@/lib/dictionaries/client";
 import { getDictionary } from "@/lib/dictionaries/server";
-import styles from "./page.module.css";
+import AuthForm from "../_components/AuthForm/AuthForm";
 
 export default async function SignUpPage({
-  params: { lang },
+  params,
 }: {
-  params: { lang: string };
+  params: Promise<{ lang: Locale }>;
 }) {
-  const dict = await getDictionary(lang as "en" | "be");
+  const dict = await getDictionary(params);
 
   return (
-    <div className={styles.wrapper}>
-      <form className={styles.form} action="#" method="post">
-        <Typography variant="h1">{dict.auth.signup.title}</Typography>
-        <Input
-          label={dict.auth.signup.email}
-          type="email"
-          name="email"
-          required
-        />
-        <Input
-          label={dict.auth.signup.password}
-          type="password"
-          name="password"
-          required
-        />
-        <Input
-          label={dict.auth.signup.confirmPassword}
-          type="password"
-          name="confirm"
-          required
-        />
-        <Button type="submit" fullWidth>
-          {dict.auth.signup.submit}
-        </Button>
-      </form>
-    </div>
+    <>
+      <Typography variant="h1">{dict.auth.signup.title}</Typography>
+      <AuthForm isSignUp />
+    </>
   );
 }

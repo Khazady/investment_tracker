@@ -6,4 +6,5 @@ const dictionaries = {
   be: () => import("./be.json").then((module) => module.default),
 };
 
-export const getDictionary = async (locale: Locale) => dictionaries[locale]();
+export const getDictionary = async (params: Promise<{ lang: Locale }>) =>
+  dictionaries[(await params).lang]();
