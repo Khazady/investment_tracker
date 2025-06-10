@@ -9,7 +9,9 @@ export default async function SignUpPage({ params }: PageParams) {
 
   return (
     <>
-      <Typography variant="h1">{dict.auth.signup.title}</Typography>
+      <Typography align="center" variant="h1">
+        {dict.auth.signup.title}
+      </Typography>
       <AuthForm isSignUpPage />
       <AuthSwitchLink isSignUpPage />
     </>

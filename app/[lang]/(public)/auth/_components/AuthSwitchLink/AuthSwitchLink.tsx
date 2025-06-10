@@ -22,12 +22,14 @@ function AuthSwitchLink({ isSignUpPage }: AuthSwitchLinkProps) {
   const targetRoute = isSignUpPage ? ROUTES.AUTH.SIGNIN : ROUTES.AUTH.SIGNUP;
 
   return (
-    <Typography variant="caption" className={styles.container}>
-      {questionText}{" "}
-      <Link href={targetRoute} className={styles.link}>
-        {linkText}
-      </Link>
-    </Typography>
+    <div className={styles.container}>
+      <Typography align="center" variant="caption">
+        {questionText}{" "}
+        <Link href={targetRoute} className={styles.link}>
+          {linkText}
+        </Link>
+      </Typography>
+    </div>
   );
 }
 

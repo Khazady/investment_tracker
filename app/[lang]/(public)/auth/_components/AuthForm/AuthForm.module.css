@@ -8,5 +8,5 @@
   gap: var(--space-md);
   width: 100%;
   max-width: 360px;
-  margin: 0 auto;
-} 
+  margin: var(--space-sm) auto 0;
+}

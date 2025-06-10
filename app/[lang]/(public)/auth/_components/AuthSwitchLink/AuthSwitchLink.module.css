@@ -1,5 +1,6 @@
 .container {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   margin-top: var(--space-md);
 }
 
@@ -7,4 +8,4 @@
   color: var(--color-primary);
   cursor: pointer;
   text-decoration: underline;
-} 
+}

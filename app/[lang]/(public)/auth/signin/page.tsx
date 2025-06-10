@@ -9,7 +9,9 @@ export default async function SignInPage({ params }: PageParams) {
 
   return (
     <>
-      <Typography variant="h1">{dict.auth.signin.title}</Typography>
+      <Typography align="center" variant="h1">
+        {dict.auth.signin.title}
+      </Typography>
       <AuthForm isSignUpPage={false} />
       <AuthSwitchLink isSignUpPage={false} />
     </>
