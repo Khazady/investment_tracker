@@ -1,13 +1,9 @@
 import Typography from "@/components/ui/Typography/Typography";
-import type { Locale } from "@/lib/dictionaries/client";
 import { getDictionary } from "@/lib/dictionaries/server";
+import type { PageParams } from "@/lib/types/next";
 import AuthForm from "../_components/AuthForm/AuthForm";
 
-export default async function SignInPage({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>;
-}) {
+export default async function SignInPage({ params }: PageParams) {
   const dict = await getDictionary(params);
 
   return (
