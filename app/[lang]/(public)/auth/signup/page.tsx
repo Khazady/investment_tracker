@@ -1,7 +1,7 @@
 import AuthSwitchLink from "@/app/[lang]/(public)/auth/_components/AuthSwitchLink/AuthSwitchLink";
 import Typography from "@/components/ui/Typography/Typography";
 import { getDictionary } from "@/lib/dictionaries/server";
-import type { PageParams } from "@/lib/types/next";
+import type { PageParams } from "@/lib/types/app";
 import AuthForm from "../_components/AuthForm/AuthForm";
 
 export default async function SignUpPage({ params }: PageParams) {
@@ -13,7 +13,7 @@ export default async function SignUpPage({ params }: PageParams) {
         {dict.auth.signup.title}
       </Typography>
       <AuthForm isSignUpPage />
-      <AuthSwitchLink isSignUpPage />
+      <AuthSwitchLink isSignUpPage dict={dict} />
     </>
   );
 }

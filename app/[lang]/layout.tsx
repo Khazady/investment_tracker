@@ -1,7 +1,7 @@
 import { locales } from "@/lib/dictionaries/client";
 import { getDictionary } from "@/lib/dictionaries/server";
 import { fonts } from "@/lib/fonts";
-import type { LayoutParams, PageParams } from "@/lib/types/next";
+import type { LayoutParams, PageParams } from "@/lib/types/app";
 import type { Metadata } from "next";
 import "../../styles/variables.css";
 import "../../styles/globals.css";
