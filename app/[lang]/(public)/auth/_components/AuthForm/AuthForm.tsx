@@ -1,12 +1,11 @@
 "use client";
 
-import Button from "@/components/ui/Button/Button";
+import SubmitButton from "@/components/common/SubmitButton/SubmitButton";
 import Input from "@/components/ui/Input/Input";
 import Typography from "@/components/ui/Typography/Typography";
 import { signup } from "@/lib/actions/signup";
 import { useDictionary } from "@/lib/hooks/useDictionary";
 import { useActionState } from "react";
-import { useFormStatus } from "react-dom";
 import styles from "./AuthForm.module.css";
 
 interface FormState {
@@ -23,16 +22,6 @@ interface AuthFormProps {
   isSignUp: boolean;
 }
 
-function SubmitButton({ text }: { text: string }) {
-  const { pending } = useFormStatus();
-  const dict = useDictionary();
-
-  return (
-    <Button type="submit" fullWidth isLoading={pending}>
-      {pending ? dict.loading.message : text}
-    </Button>
-  );
-}
 function signinPlaceholder(prevState: FormState, formData: FormData) {
   return {} as Promise<FormState>;
 }
