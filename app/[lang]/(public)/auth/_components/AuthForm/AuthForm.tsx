@@ -19,7 +19,7 @@ interface FormState {
 }
 
 interface AuthFormProps {
-  isSignUp: boolean;
+  isSignUpPage: boolean;
 }
 
 function signinPlaceholder(prevState: FormState, formData: FormData) {
@@ -31,10 +31,10 @@ const initialState: FormState = {
   fieldErrors: {},
 };
 
-function AuthForm({ isSignUp }: AuthFormProps) {
+function AuthForm({ isSignUpPage }: AuthFormProps) {
   const dict = useDictionary();
   const [state, formAction] = useActionState(
-    isSignUp ? signup : signinPlaceholder,
+    isSignUpPage ? signup : signinPlaceholder,
     initialState,
   );
 
@@ -56,7 +56,7 @@ function AuthForm({ isSignUp }: AuthFormProps) {
         error={state.fieldErrors?.password}
       />
 
-      {isSignUp && (
+      {isSignUpPage && (
         <Input
           label={dict.auth.signup.confirmPassword}
           type="password"
@@ -73,7 +73,7 @@ function AuthForm({ isSignUp }: AuthFormProps) {
       )}
 
       <SubmitButton
-        text={isSignUp ? dict.auth.signup.submit : dict.auth.signin.submit}
+        text={isSignUpPage ? dict.auth.signup.submit : dict.auth.signin.submit}
       />
     </form>
   );

@@ -30,13 +30,17 @@
       "email": "Email",
       "password": "Password",
       "confirmPassword": "Confirm Password",
-      "submit": "Create account"
+      "submit": "Create account",
+      "signupQuestion": "Already have an account?",
+      "signupLink": "Sign In"
     },
     "signin": {
       "title": "Sign In",
       "email": "Email",
       "password": "Password",
-      "submit": "Log in"
+      "submit": "Log in",
+      "loginQuestion": "Don't have an account?",
+      "loginLink": "Sign Up"
     }
   }
 } 

@@ -1,3 +1,4 @@
+import AuthSwitchLink from "@/app/[lang]/(public)/auth/_components/AuthSwitchLink/AuthSwitchLink";
 import Typography from "@/components/ui/Typography/Typography";
 import { getDictionary } from "@/lib/dictionaries/server";
 import type { PageParams } from "@/lib/types/next";
@@ -9,7 +10,8 @@ export default async function SignInPage({ params }: PageParams) {
   return (
     <>
       <Typography variant="h1">{dict.auth.signin.title}</Typography>
-      <AuthForm isSignUp={false} />
+      <AuthForm isSignUpPage={false} />
+      <AuthSwitchLink isSignUpPage={false} />
     </>
   );
 }
