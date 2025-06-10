@@ -1,3 +1,4 @@
+import type { Locale } from "@/lib/dictionaries/client";
 import { defaultLocale, locales } from "@/lib/dictionaries/client";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
@@ -5,6 +6,14 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 function getLocale(request: NextRequest) {
+  const cookieLocale = request.cookies.get("locale")?.value;
+  const refererHeader = request.headers.get("referer") || "";
+  const refererLocale = locales.find((l) => refererHeader.startsWith(`/${l}`));
+
+  if (cookieLocale || refererLocale) {
+    return (cookieLocale || refererLocale) as Locale;
+  }
+
   const negotiatorHeaders: Record<string, string> = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
@@ -19,9 +28,15 @@ export function middleware(request: NextRequest) {
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );
 
-  if (pathnameHasLocale) return;
+  if (pathnameHasLocale) {
+    const currentLocale = pathname.split("/")[1];
+    const response = NextResponse.next();
+    response.cookies.set("locale", currentLocale, { path: "/" });
+    return response;
+  }
 
   const locale = getLocale(request);
+
   request.nextUrl.pathname = `/${locale}${pathname}`;
   return NextResponse.redirect(request.nextUrl);
 }
