@@ -6,6 +6,7 @@ import Typography from "@/components/ui/Typography/Typography";
 import { signup } from "@/lib/actions/signup";
 import { useDictionary } from "@/lib/hooks/useDictionary";
 import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import styles from "./AuthForm.module.css";
 
 interface FormState {
@@ -37,23 +38,44 @@ function AuthForm({ isSignUpPage }: AuthFormProps) {
     isSignUpPage ? signup : signinPlaceholder,
     initialState,
   );
+  const { pending } = useFormStatus();
 
   return (
     <form action={formAction} className={styles.form}>
       <Input
-        label={dict.auth.signin.email}
+        id="email"
         type="email"
         name="email"
         required
         error={state.fieldErrors?.email}
+        autoCapitalize="none"
+        autoComplete="email"
+        autoCorrect="off"
+        placeholder={
+          isSignUpPage
+            ? dict.auth.signup.placeholders.email
+            : dict.auth.signin.placeholders.email
+        }
+        disabled={pending}
+        label={dict.auth.signin.email}
       />
 
       <Input
-        label={dict.auth.signin.password}
+        id="password"
         type="password"
         name="password"
         required
+        autoCapitalize="none"
+        autoComplete="new-password"
+        autoCorrect="off"
         error={state.fieldErrors?.password}
+        placeholder={
+          isSignUpPage
+            ? dict.auth.signup.placeholders.password
+            : dict.auth.signin.placeholders.password
+        }
+        disabled={pending}
+        label={dict.auth.signin.password}
       />
 
       {isSignUpPage && (
@@ -63,6 +85,11 @@ function AuthForm({ isSignUpPage }: AuthFormProps) {
           name="confirm"
           required
           error={state.fieldErrors?.confirm}
+          placeholder={dict.auth.signup.placeholders.confirmPassword}
+          autoCapitalize="none"
+          autoComplete="new-password"
+          autoCorrect="off"
+          disabled={pending}
         />
       )}
 

@@ -32,7 +32,12 @@
       "confirmPassword": "Confirm Password",
       "submit": "Create account",
       "signupQuestion": "Already have an account?",
-      "signupLink": "Sign In"
+      "signupLink": "Sign In",
+      "placeholders": {
+        "email": "name@example.com",
+        "password": "Your password",
+        "confirmPassword": "Confirm your password"
+      }
     },
     "signin": {
       "title": "Sign In",
@@ -40,7 +45,11 @@
       "password": "Password",
       "submit": "Log in",
       "loginQuestion": "Don't have an account?",
-      "loginLink": "Sign Up"
+      "loginLink": "Sign Up",
+      "placeholders": {
+        "email": "name@example.com",
+        "password": "Your password"
+      }
     }
   }
 } 

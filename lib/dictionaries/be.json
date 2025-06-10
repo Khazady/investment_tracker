@@ -32,7 +32,12 @@
       "confirmPassword": "Пацвердзіце пароль",
       "submit": "Стварыць уліковы запіс",
       "signupQuestion": "Ужо ёсць уліковы запіс?",
-      "signupLink": "Увайсці"
+      "signupLink": "Увайсці",
+      "placeholders": {
+        "email": "name@example.com",
+        "password": "Ваш пароль",
+        "confirmPassword": "Пацвердзіце ваш пароль"
+      }
     },
     "signin": {
       "title": "Уваход",
@@ -40,7 +45,11 @@
       "password": "Пароль",
       "submit": "Увайсці",
       "loginQuestion": "Няма ўліковага запісу?",
-      "loginLink": "Зарэгістравацца"
+      "loginLink": "Зарэгістравацца",
+      "placeholders": {
+        "email": "name@example.com",
+        "password": "Ваш пароль"
+      }
     }
   }
 }
