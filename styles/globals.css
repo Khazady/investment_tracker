@@ -6,7 +6,6 @@
 
 html,
 body {
-  min-height: 100vh;
   max-width: 100vw;
   overflow-x: hidden;
 }
@@ -20,8 +19,11 @@ body {
 }
 
 body > main {
+  min-height: 100vh;
+
   display: flex;
   flex-direction: column;
+  justify-content: center;
   padding: var(--space-md);
 }
 

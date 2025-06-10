@@ -1,3 +1,5 @@
-export default function PublicLayout({ children }: { children: React.ReactNode }) {
+import type { LayoutParams } from "@/lib/types/app";
+
+export default function PublicLayout({ children }: LayoutParams) {
   return <div>{children}</div>;
 }
