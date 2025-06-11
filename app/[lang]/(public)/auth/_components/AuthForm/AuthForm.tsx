@@ -40,7 +40,7 @@ function AuthForm({ isSignUpPage }: AuthFormProps) {
         type="email"
         name="email"
         required
-        error={state.fieldErrors?.email}
+        errors={state.fieldErrors?.email}
         autoCapitalize="none"
         autoComplete="email"
         autoCorrect="off"
@@ -61,7 +61,7 @@ function AuthForm({ isSignUpPage }: AuthFormProps) {
         autoCapitalize="none"
         autoComplete="new-password"
         autoCorrect="off"
-        error={state.fieldErrors?.password}
+        errors={state.fieldErrors?.password}
         placeholder={
           isSignUpPage
             ? dict.auth.signup.placeholders.password
@@ -77,7 +77,7 @@ function AuthForm({ isSignUpPage }: AuthFormProps) {
           type="password"
           name="confirm"
           required
-          error={state.fieldErrors?.confirm}
+          errors={state.fieldErrors?.confirm}
           placeholder={dict.auth.signup.placeholders.confirmPassword}
           autoCapitalize="none"
           autoComplete="new-password"

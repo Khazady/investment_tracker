@@ -36,8 +36,16 @@ export const userSchema = z.object({
     ),
 });
 
-export const signUpUserSchema = userSchema.omit({
-  id: true,
-  username: true,
-  image: true,
-});
+export const signUpUserSchema = userSchema
+  .omit({
+    id: true,
+    username: true,
+    image: true,
+  })
+  .extend({
+    confirm: z.string(),
+  })
+  .refine((data) => data.password === data.confirm, {
+    path: ["confirm"],
+    message: "Passwords do not match.",
+  });

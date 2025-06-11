@@ -35,4 +35,20 @@ const ErrorMessage = ({
   );
 };
 
+export function Errors(props: { errors?: string[] | string; id?: string }) {
+  const { errors, id } = props;
+
+  if (!errors) return null;
+
+  const list = Array.isArray(errors) ? errors : [errors];
+  return (
+    <div id={id} aria-live="polite" aria-atomic="true">
+      {errors &&
+        list.map((error, index) => (
+          <ErrorMessage key={`${error}-${index}`} message={error} />
+        ))}
+    </div>
+  );
+}
+
 export default ErrorMessage;

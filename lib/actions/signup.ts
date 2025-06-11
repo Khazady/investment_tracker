@@ -11,9 +11,9 @@ export interface FormState {
   error?: string;
   message?: string;
   fieldErrors?: {
-    email?: string;
-    password?: string;
-    confirm?: string;
+    email?: string[];
+    password?: string[];
+    confirm?: string[];
   };
 }
 export const signup = async (
@@ -28,7 +28,7 @@ export const signup = async (
 
   if (!validatedFields.success) {
     return {
-      fieldErrors: validatedFields.error.flatten(),
+      fieldErrors: validatedFields.error.flatten().fieldErrors,
       message: "Invalid data. Failed to Create User.",
     };
   }

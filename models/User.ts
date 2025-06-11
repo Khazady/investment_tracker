@@ -1,5 +1,9 @@
 import { hashPassword, verifyPassword } from "@/lib/utils";
-import type { Model } from "mongoose";
+import type {
+  CallbackWithoutResultAndOptionalError,
+  Document,
+  Model,
+} from "mongoose";
 import mongoose, { Schema } from "mongoose";
 
 export interface IUser extends Document {
@@ -58,18 +62,21 @@ const UserSchema = new Schema<IUser>(
 );
 
 // Hash password before saving
-UserSchema.pre<IUser>("save", async function (next) {
-  if (!this.isModified("passwordHash")) return next();
-  try {
-    this.passwordHash = await hashPassword(this.passwordHash);
-    next();
-  } catch (err) {
-    next(err as Error);
-  }
-});
+UserSchema.pre<IUser>(
+  "save",
+  async function (this: IUser, next: CallbackWithoutResultAndOptionalError) {
+    if (!this.isModified("passwordHash")) return next();
+    try {
+      this.passwordHash = await hashPassword(this.passwordHash);
+      next();
+    } catch (err) {
+      next(err as Error);
+    }
+  },
+);
 
 // Instance method to compare passwords
-UserSchema.methods.comparePassword = function (candidate: string) {
+UserSchema.methods.comparePassword = function (this: IUser, candidate: string) {
   return verifyPassword(this.passwordHash, candidate);
 };
 

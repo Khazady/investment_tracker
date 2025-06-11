@@ -1,6 +1,6 @@
 "use client";
 
-import ErrorMessage from "@/components/ui/ErrorMessage/ErrorMessage";
+import { Errors } from "@/components/ui/ErrorMessage/ErrorMessage";
 import Typography from "@/components/ui/Typography/Typography";
 import { cn } from "@/lib/utils";
 import type { InputHTMLAttributes } from "react";
@@ -11,7 +11,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   /** Text for the input label; if omitted, renders only the input */
   label?: string;
   /** Error message to display below the field */
-  error?: string;
+  errors?: string | string[];
   /** Hint text to display when there's no error */
   hint?: string;
   /** Layout label and input inline when true */
@@ -19,7 +19,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, id, error, hint, inline = false, className, ...props }, ref) => {
+  ({ label, id, errors, hint, inline = false, className, ...props }, ref) => {
     const generatedId = useId();
     const inputId = id || generatedId;
 
@@ -27,17 +27,17 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       <input
         id={inputId}
         ref={ref}
-        className={cn(styles.input, error && styles.error, className)}
-        aria-invalid={!!error}
+        className={cn(styles.input, errors && styles.error, className)}
+        aria-invalid={!!errors}
         aria-describedby={
-          error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined
+          errors ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined
         }
         {...props}
       />
     );
 
-    const helpText = error ? (
-      <ErrorMessage id={`${inputId}-error`} message={error} />
+    const helpText = errors ? (
+      <Errors id={`${inputId}-error`} errors={errors} />
     ) : hint ? (
       <Typography
         id={`${inputId}-hint`}
