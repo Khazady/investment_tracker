@@ -3,16 +3,15 @@
 import FormFields from "@/app/[lang]/(public)/auth/_components/AuthForm/FormFields";
 import SubmitButton from "@/components/common/SubmitButton/SubmitButton";
 import ErrorMessage from "@/components/ui/ErrorMessage/ErrorMessage";
+import type { ISignInForm } from "@/lib/actions/signin";
+import { signin } from "@/lib/actions/signin";
 import type { ISignUpForm } from "@/lib/actions/signup";
 import { signup } from "@/lib/actions/signup";
 import { useDictionary } from "@/lib/hooks/useDictionary";
 import { useActionState } from "react";
 import styles from "./AuthForm.module.css";
 
-function signinPlaceholder() {
-  return {} as Promise<ISignUpForm>;
-}
-const initialState: ISignUpForm = {
+const initialState: ISignUpForm | ISignInForm = {
   error: undefined,
   message: undefined,
   fieldErrors: undefined,
@@ -21,7 +20,7 @@ const initialState: ISignUpForm = {
 function AuthForm({ isSignUpPage }: { isSignUpPage: boolean }) {
   const dict = useDictionary();
   const [state, dispatch, pending] = useActionState(
-    isSignUpPage ? signup : signinPlaceholder,
+    isSignUpPage ? signup : signin,
     initialState,
   );
 
