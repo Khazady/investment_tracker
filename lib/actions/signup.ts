@@ -6,7 +6,6 @@ import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
 import { redirect } from "next/navigation";
 import { signUpUserSchema } from "../schemas/user.schema";
-import { hashPassword } from "../utils/hashPassword";
 
 export interface ISignUpForm {
   error?: string;
@@ -42,13 +41,12 @@ export const signup = async (
     if (userFound) {
       return { error: "Email already exists!" };
     }
-    const hashedPassword = hashPassword(password);
     const username = email.split("@")[0];
     const publicSlug = await generateUniqueSlug(username);
     const newUser = new User({
       username,
       email,
-      passwordHash: hashedPassword,
+      passwordHash: password,
       publicSlug,
       // add rest fields from IUser
     });
