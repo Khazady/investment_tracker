@@ -49,3 +49,9 @@ export const signUpUserSchema = userSchema
     path: ["confirm"],
     message: "Passwords do not match.",
   });
+
+export const signInUserSchema = userSchema.omit({
+  id: true,
+  username: true,
+  image: true,
+});
