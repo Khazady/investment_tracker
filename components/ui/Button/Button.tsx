@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import React from 'react';
-import styles from './Button.module.css';
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
+import React from "react";
+import styles from "./Button.module.css";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline';
-  size?: 'small' | 'medium' | 'large';
+  variant?: "primary" | "secondary" | "outline";
+  size?: "small" | "medium" | "large";
   isLoading?: boolean;
   fullWidth?: boolean;
 }
@@ -14,8 +14,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 const Button: React.FC<ButtonProps> = ({
   children,
   className,
-  variant = 'primary',
-  size = 'medium',
+  variant = "primary",
+  size = "medium",
   isLoading = false,
   fullWidth = false,
   disabled,
@@ -28,7 +28,7 @@ const Button: React.FC<ButtonProps> = ({
         styles[variant],
         styles[size],
         fullWidth && styles.fullWidth,
-        className
+        className,
       )}
       disabled={disabled || isLoading}
       {...props}
