@@ -20,9 +20,12 @@ export function cn(...classes: (string | false | undefined | null)[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export function debounce(func: Function, delay: number) {
+export function debounce<T extends (...args: unknown[]) => void>(
+  func: T,
+  delay: number,
+): (...args: Parameters<T>) => void {
   let timerId: NodeJS.Timeout;
-  return function (...args: any[]) {
+  return (...args: Parameters<T>) => {
     clearTimeout(timerId);
     timerId = setTimeout(() => {
       func(...args);
