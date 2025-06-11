@@ -53,10 +53,14 @@ export const signup = async (
       // add rest fields from IUser
     });
     await newUser.save();
-    redirect(ROUTES.AUTH.SIGNIN);
   } catch (error) {
     console.log(error);
     return { message: "Database Error: Failed to Create User." };
+  }
+  try {
+    redirect(ROUTES.AUTH.SIGNIN);
+  } catch {
+    return { message: "Redirect Error: Failed to Redirect User." };
   }
 };
 
