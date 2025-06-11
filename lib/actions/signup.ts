@@ -1,11 +1,12 @@
 "use server";
+
 import { ROUTES } from "@/lib/constants/routes";
 import { getUser } from "@/lib/db-queries/user";
 import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
 import { redirect } from "next/navigation";
 import { signUpUserSchema } from "../schemas/user.schema";
-import { hashPassword } from "../utils";
+import { hashPassword } from "../utils/hashPassword";
 
 export interface ISignUpForm {
   error?: string;
@@ -43,16 +44,28 @@ export const signup = async (
     }
     const hashedPassword = hashPassword(password);
     const username = email.split("@")[0];
+    const publicSlug = await generateUniqueSlug(username);
     const newUser = new User({
       username,
       email,
       passwordHash: hashedPassword,
-      publicSlug: username,
+      publicSlug,
       // add rest fields from IUser
     });
     await newUser.save();
     redirect(ROUTES.AUTH.SIGNIN);
-  } catch {
+  } catch (error) {
+    console.log(error);
     return { message: "Database Error: Failed to Create User." };
   }
 };
+
+export async function generateUniqueSlug(base: string): Promise<string> {
+  let slug = base;
+  let counter = 1;
+  while (await User.exists({ publicSlug: slug })) {
+    slug = `${base}-${counter}`;
+    counter += 1;
+  }
+  return slug;
+}

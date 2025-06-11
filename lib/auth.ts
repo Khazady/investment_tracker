@@ -31,7 +31,12 @@ export const authOptions: NextAuthOptions = {
         );
 
         if (!isValid) throw new Error("Wrong Password");
-        return existingUser;
+        return {
+          id: String(existingUser._id),
+          name: existingUser.username,
+          email: existingUser.email,
+          image: existingUser.avatarUrl,
+        };
       },
     }),
   ],
