@@ -3,21 +3,12 @@
 import SubmitButton from "@/components/common/SubmitButton/SubmitButton";
 import ErrorMessage from "@/components/ui/ErrorMessage/ErrorMessage";
 import Input from "@/components/ui/Input/Input";
+import type { FormState } from "@/lib/actions/signup";
 import { signup } from "@/lib/actions/signup";
 import { useDictionary } from "@/lib/hooks/useDictionary";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import styles from "./AuthForm.module.css";
-
-interface FormState {
-  error?: string;
-  message?: string;
-  fieldErrors?: {
-    email?: string;
-    password?: string;
-    confirm?: string;
-  };
-}
 
 interface AuthFormProps {
   isSignUpPage: boolean;
@@ -39,6 +30,8 @@ function AuthForm({ isSignUpPage }: AuthFormProps) {
     initialState,
   );
   const { pending } = useFormStatus();
+
+  console.log(pending);
 
   return (
     <form action={formAction} className={styles.form}>
