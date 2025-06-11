@@ -2,7 +2,7 @@ import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
 import type { NextAuthOptions } from "next-auth";
 import credentials from "next-auth/providers/credentials";
-import { verifyPassword } from "./utils";
+import { verifyPassword } from "./utils/verifyPassword";
 
 export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },

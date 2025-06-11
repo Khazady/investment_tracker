@@ -24,7 +24,10 @@ export async function generateMetadata({
   };
 }
 
-export default async function RootLayout({ children, params }: LayoutParams) {
+export default async function LocaleRootLayout({
+  children,
+  params,
+}: LayoutParams) {
   return (
     <html lang={(await params).lang}>
       <body className={`${fonts.sans.variable} ${fonts.mono.variable}`}>

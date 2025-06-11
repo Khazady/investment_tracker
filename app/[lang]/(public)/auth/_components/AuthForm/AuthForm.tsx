@@ -9,7 +9,7 @@ import { useDictionary } from "@/lib/hooks/useDictionary";
 import { useActionState } from "react";
 import styles from "./AuthForm.module.css";
 
-function signinPlaceholder(prevState: ISignUpForm, formData: FormData) {
+function signinPlaceholder() {
   return {} as Promise<ISignUpForm>;
 }
 const initialState: ISignUpForm = {
@@ -20,7 +20,7 @@ const initialState: ISignUpForm = {
 
 function AuthForm({ isSignUpPage }: { isSignUpPage: boolean }) {
   const dict = useDictionary();
-  const [state, dispatch] = useActionState(
+  const [state, dispatch, pending] = useActionState(
     isSignUpPage ? signup : signinPlaceholder,
     initialState,
   );
@@ -29,8 +29,8 @@ function AuthForm({ isSignUpPage }: { isSignUpPage: boolean }) {
     <form action={dispatch} className={styles.form}>
       <FormFields isSignUpPage={isSignUpPage} errors={state.fieldErrors} />
 
-      {state.error && <ErrorMessage message={state.error} />}
-      {state.message && <ErrorMessage message={state.message} />}
+      {!pending && state.error && <ErrorMessage message={state.error} />}
+      {!pending && state.message && <ErrorMessage message={state.message} />}
 
       <SubmitButton
         text={isSignUpPage ? dict.auth.signup.submit : dict.auth.signin.submit}

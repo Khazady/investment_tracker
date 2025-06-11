@@ -1,12 +1,6 @@
-import { cn } from "@/lib/utils";
-import type {
-  ElementType,
-  ForwardedRef,
-  HTMLAttributes,
-  JSX} from "react";
-import {
-  forwardRef
-} from "react";
+import { cn } from "@/lib/utils/cn";
+import type { ElementType, ForwardedRef, HTMLAttributes, JSX } from "react";
+import { forwardRef } from "react";
 import styles from "./Typography.module.css";
 
 export type TypographyVariant =

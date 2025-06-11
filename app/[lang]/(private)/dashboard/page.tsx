@@ -1,17 +1,21 @@
-import { getDictionary } from '@/lib/dictionaries/server'
+import Typography from "@/components/ui/Typography/Typography";
+import { getDictionary } from "@/lib/dictionaries/server";
+import type { PageParams } from "@/lib/types/app";
 
-export default async function Dashboard({
-  params: { lang },
-}: {
-  params: { lang: string }
-}) {
-  const dict = await getDictionary(lang as 'en' | 'be')
+export default async function Dashboard({ params }: PageParams) {
+  const dict = await getDictionary(params);
 
   return (
-    <div>
-      <h1>{dict.dashboard.title}</h1>
-      <h2>{dict.dashboard.welcome}</h2>
-      <p>{dict.dashboard.summary}</p>
-    </div>
-  )
-} 
+    <>
+      <Typography variant="h1" align="center">
+        {dict.dashboard.title}
+      </Typography>
+      <Typography variant="h2" align="center">
+        {dict.dashboard.welcome}
+      </Typography>
+      <Typography variant="body" align="center">
+        {dict.dashboard.summary}
+      </Typography>
+    </>
+  );
+}
