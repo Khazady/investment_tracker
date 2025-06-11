@@ -57,11 +57,7 @@ export const signup = async (
     console.log(error);
     return { message: "Database Error: Failed to Create User." };
   }
-  try {
-    redirect(ROUTES.AUTH.SIGNIN);
-  } catch {
-    return { message: "Redirect Error: Failed to Redirect User." };
-  }
+  redirect(ROUTES.AUTH.SIGNIN);
 };
 
 export async function generateUniqueSlug(base: string): Promise<string> {
