@@ -1,6 +1,6 @@
 import { hashPassword, verifyPassword } from "@/lib/utils";
-import bcrypt from "bcryptjs";
-import mongoose, { Model, Schema } from "mongoose";
+import type { Model } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 export interface IUser extends Document {
   username: string;
@@ -67,10 +67,10 @@ UserSchema.pre<IUser>("save", async function (next) {
     next(err as Error);
   }
 });
+
 // Instance method to compare passwords
 UserSchema.methods.comparePassword = function (candidate: string) {
-  // возвращает Promise<boolean>
-  return verifyPassword(candidate, this.passwordHash);
+  return verifyPassword(this.passwordHash, candidate);
 };
 
 const User: Model<IUser> =
