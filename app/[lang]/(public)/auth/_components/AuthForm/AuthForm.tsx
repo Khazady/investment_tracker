@@ -1,90 +1,33 @@
 "use client";
 
+import FormFields from "@/app/[lang]/(public)/auth/_components/AuthForm/FormFields";
 import SubmitButton from "@/components/common/SubmitButton/SubmitButton";
 import ErrorMessage from "@/components/ui/ErrorMessage/ErrorMessage";
-import Input from "@/components/ui/Input/Input";
-import type { FormState } from "@/lib/actions/signup";
+import type { ISignUpForm } from "@/lib/actions/signup";
 import { signup } from "@/lib/actions/signup";
 import { useDictionary } from "@/lib/hooks/useDictionary";
 import { useActionState } from "react";
-import { useFormStatus } from "react-dom";
 import styles from "./AuthForm.module.css";
 
-interface AuthFormProps {
-  isSignUpPage: boolean;
+function signinPlaceholder(prevState: ISignUpForm, formData: FormData) {
+  return {} as Promise<ISignUpForm>;
 }
-
-function signinPlaceholder(prevState: FormState, formData: FormData) {
-  return {} as Promise<FormState>;
-}
-const initialState: FormState = {
+const initialState: ISignUpForm = {
   error: undefined,
   message: undefined,
-  fieldErrors: {},
+  fieldErrors: undefined,
 };
 
-function AuthForm({ isSignUpPage }: AuthFormProps) {
+function AuthForm({ isSignUpPage }: { isSignUpPage: boolean }) {
   const dict = useDictionary();
-  const [state, formAction] = useActionState(
+  const [state, dispatch] = useActionState(
     isSignUpPage ? signup : signinPlaceholder,
     initialState,
   );
-  const { pending } = useFormStatus();
-
-  console.log(pending);
 
   return (
-    <form action={formAction} className={styles.form}>
-      <Input
-        id="email"
-        type="email"
-        name="email"
-        required
-        errors={state.fieldErrors?.email}
-        autoCapitalize="none"
-        autoComplete="email"
-        autoCorrect="off"
-        placeholder={
-          isSignUpPage
-            ? dict.auth.signup.placeholders.email
-            : dict.auth.signin.placeholders.email
-        }
-        disabled={pending}
-        label={dict.auth.signin.email}
-      />
-
-      <Input
-        id="password"
-        type="password"
-        name="password"
-        required
-        autoCapitalize="none"
-        autoComplete="new-password"
-        autoCorrect="off"
-        errors={state.fieldErrors?.password}
-        placeholder={
-          isSignUpPage
-            ? dict.auth.signup.placeholders.password
-            : dict.auth.signin.placeholders.password
-        }
-        disabled={pending}
-        label={dict.auth.signin.password}
-      />
-
-      {isSignUpPage && (
-        <Input
-          label={dict.auth.signup.confirmPassword}
-          type="password"
-          name="confirm"
-          required
-          errors={state.fieldErrors?.confirm}
-          placeholder={dict.auth.signup.placeholders.confirmPassword}
-          autoCapitalize="none"
-          autoComplete="new-password"
-          autoCorrect="off"
-          disabled={pending}
-        />
-      )}
+    <form action={dispatch} className={styles.form}>
+      <FormFields isSignUpPage={isSignUpPage} errors={state.fieldErrors} />
 
       {state.error && <ErrorMessage message={state.error} />}
       {state.message && <ErrorMessage message={state.message} />}

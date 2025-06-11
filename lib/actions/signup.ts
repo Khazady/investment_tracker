@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { signUpUserSchema } from "../schemas/user.schema";
 import { hashPassword } from "../utils";
 
-export interface FormState {
+export interface ISignUpForm {
   error?: string;
   message?: string;
   fieldErrors?: {
@@ -17,9 +17,9 @@ export interface FormState {
   };
 }
 export const signup = async (
-  _prevState: FormState,
+  _prevState: ISignUpForm,
   formData: FormData,
-): Promise<FormState> => {
+): Promise<ISignUpForm> => {
   const validatedFields = signUpUserSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),

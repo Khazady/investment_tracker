@@ -1,3 +1,5 @@
+"use client";
+
 import Button from "@/components/ui/Button/Button";
 import { useDictionary } from "@/lib/hooks/useDictionary";
 import { useFormStatus } from "react-dom";
@@ -17,4 +19,4 @@ function SubmitButton({ text }: SubmitButtonProps) {
   );
 }
 
-export default SubmitButton; 
+export default SubmitButton;
