@@ -4,6 +4,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import { getUser } from "@/lib/db-queries/user";
 import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { signUpUserSchema } from "../schemas/user.schema";
 
@@ -34,6 +35,7 @@ export const signup = async (
   }
 
   const { email, password } = validatedFields.data;
+  const cookieStore = await cookies();
 
   try {
     await connectDB();
@@ -55,7 +57,8 @@ export const signup = async (
     console.log(error);
     return { message: "Database Error: Failed to Create User." };
   }
-  redirect(ROUTES.AUTH.SIGNIN);
+  const locale = cookieStore.get("locale")?.value;
+  redirect(locale ? `/${locale}${ROUTES.AUTH.SIGNIN}` : ROUTES.AUTH.SIGNIN);
 };
 
 export async function generateUniqueSlug(base: string): Promise<string> {

@@ -33,6 +33,7 @@ export const signin = async (
   }
 
   const { email, password } = validatedFields.data;
+  const cookieStore = await cookies();
 
   try {
     await connectDB();
@@ -44,7 +45,6 @@ export const signin = async (
     if (!isValid) {
       return { error: "Wrong Password" };
     }
-    const cookieStore = await cookies();
     cookieStore.set("userId", String(existingUser._id), {
       httpOnly: true,
       sameSite: "lax",
@@ -56,5 +56,6 @@ export const signin = async (
     return { message: "Database Error: Failed to Sign In." };
   }
 
-  redirect(ROUTES.DASHBOARD);
+  const locale = cookieStore.get("locale")?.value;
+  redirect(locale ? `/${locale}${ROUTES.DASHBOARD}` : ROUTES.DASHBOARD);
 };

@@ -7,5 +7,6 @@ import { redirect } from "next/navigation";
 export const signout = async () => {
   const cookieStore = await cookies();
   cookieStore.delete("userId");
-  redirect(ROUTES.AUTH.SIGNIN);
+  const locale = cookieStore.get("locale")?.value;
+  redirect(locale ? `/${locale}${ROUTES.AUTH.SIGNIN}` : ROUTES.AUTH.SIGNIN);
 };
