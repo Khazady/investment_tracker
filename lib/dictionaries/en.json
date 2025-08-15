@@ -6,7 +6,8 @@
   "navigation": {
     "home": "Home",
     "portfolio": "Portfolio",
-    "settings": "Settings"
+    "settings": "Settings",
+    "signOut": "Sign Out"
   },
   "error": {
     "title": "An error occurred!",

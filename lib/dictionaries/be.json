@@ -6,7 +6,8 @@
   "navigation": {
     "home": "Галоўная",
     "portfolio": "Партфель",
-    "settings": "Налады"
+    "settings": "Налады",
+    "signOut": "Выйсці"
   },
   "error": {
     "title": "Узнікла памылка!",
