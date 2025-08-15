@@ -1,3 +1,4 @@
+import { PRIVATE_ROUTES, ROUTES } from "@/lib/constants/routes";
 import type { Locale } from "@/lib/dictionaries/client";
 import { defaultLocale, locales } from "@/lib/dictionaries/client";
 import { match } from "@formatjs/intl-localematcher";
@@ -30,6 +31,20 @@ export function middleware(request: NextRequest) {
 
   if (pathnameHasLocale) {
     const currentLocale = pathname.split("/")[1];
+
+    const isPrivate = PRIVATE_ROUTES.some((route) =>
+      pathname.startsWith(`/${currentLocale}${route}`),
+    );
+    const userId = request.cookies.get("userId")?.value;
+
+    if (isPrivate && !userId) {
+      const signInUrl = request.nextUrl.clone();
+      signInUrl.pathname = `/${currentLocale}${ROUTES.AUTH.SIGNIN}`;
+      const redirectResponse = NextResponse.redirect(signInUrl);
+      redirectResponse.cookies.set("locale", currentLocale, { path: "/" });
+      return redirectResponse;
+    }
+
     const response = NextResponse.next();
     response.cookies.set("locale", currentLocale, { path: "/" });
     return response;

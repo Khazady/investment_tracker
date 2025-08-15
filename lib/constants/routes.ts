@@ -6,3 +6,5 @@ export const ROUTES = {
     SIGNUP: "/auth/signup",
   },
 };
+
+export const PRIVATE_ROUTES = [ROUTES.DASHBOARD];
