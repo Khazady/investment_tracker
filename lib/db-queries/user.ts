@@ -1,8 +1,7 @@
 import type { IUser } from "@/models/User";
 import User from "@/models/User";
-import type { RootFilterQuery } from "mongoose";
 
-export async function getUser(filter: RootFilterQuery<IUser>) {
+export async function getUser(filter: Partial<IUser>) {
   try {
     return await User.findOne(filter);
   } catch (error) {
