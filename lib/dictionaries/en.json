@@ -52,5 +52,14 @@
         "password": "Your password"
       }
     }
+  },
+  "profile": {
+    "title": "Profile",
+    "userNotFound": "User not found",
+    "username": "Username",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "save": "Save"
   }
-} 
+}

@@ -55,3 +55,60 @@ export const signInUserSchema = userSchema.omit({
   username: true,
   image: true,
 });
+
+export const updateProfileSchema = z
+  .object({
+    username: z
+      .string()
+      .min(2, {
+        message: "Username must be at least 2 characters.",
+      })
+      .max(30, {
+        message: "Username must not be longer than 30 characters.",
+      }),
+    currentPassword: z
+      .string()
+      .min(1, { message: "Current password is required." }),
+    newPassword: z
+      .union([
+        z
+          .string()
+          .regex(
+            PASSWORD_REGEX,
+            "The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).",
+          ),
+        z.literal(""),
+      ])
+      .optional(),
+    confirm: z.union([z.string(), z.literal("")]).optional(),
+  })
+  .superRefine((data, ctx) => {
+    const hasNewPassword = !!data.newPassword && data.newPassword !== "";
+    const hasConfirm = !!data.confirm && data.confirm !== "";
+
+    if (hasNewPassword || hasConfirm) {
+      if (!hasNewPassword) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "New password is required.",
+          path: ["newPassword"],
+        });
+      }
+
+      if (!hasConfirm) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Confirm password is required.",
+          path: ["confirm"],
+        });
+      }
+
+      if (hasNewPassword && hasConfirm && data.newPassword !== data.confirm) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Passwords do not match.",
+          path: ["confirm"],
+        });
+      }
+    }
+  });

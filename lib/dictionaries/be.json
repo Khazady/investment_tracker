@@ -52,5 +52,14 @@
         "password": "Ваш пароль"
       }
     }
+  },
+  "profile": {
+    "title": "Профіль",
+    "userNotFound": "Карыстальнік не знойдзены",
+    "username": "Імя карыстальніка",
+    "currentPassword": "Бягучы пароль",
+    "newPassword": "Новы пароль",
+    "confirmPassword": "Пацвердзіце новы пароль",
+    "save": "Захаваць"
   }
 }
