@@ -1,4 +1,5 @@
 import { EMAIL_REGEX, PASSWORD_REGEX } from "@/lib/constants/regex";
+import { ERRORS } from "@/lib/constants/errors";
 import { z } from "zod";
 
 const MAX_FILE_SIZE = 50_000_00;
@@ -14,25 +15,25 @@ export const userSchema = z.object({
   username: z
     .string()
     .min(2, {
-      message: "Username must be at least 2 characters.",
+      message: ERRORS.USER.USERNAME_LENGTH,
     })
     .max(30, {
-      message: "Username must not be longer than 30 characters.",
+      message: ERRORS.USER.USERNAME_LENGTH,
     }),
   image: z
     .custom<File>()
-    .refine((file) => file?.name.length > 0, "File is required.")
+    .refine((file) => file?.name.length > 0, ERRORS.FILE.REQUIRED)
     .refine(
       (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-      "Must be a JPG, PNG, or WEBP image.",
+      ERRORS.FILE.TYPE,
     )
-    .refine((file) => file?.size <= MAX_FILE_SIZE, `Max file size is 5MB.`),
-  email: z.string().regex(EMAIL_REGEX, "Email format is incorrect."),
+    .refine((file) => file?.size <= MAX_FILE_SIZE, ERRORS.FILE.SIZE),
+  email: z.string().regex(EMAIL_REGEX, ERRORS.USER.EMAIL_FORMAT),
   password: z
     .string()
     .regex(
       PASSWORD_REGEX,
-      "The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).",
+      ERRORS.USER.PASSWORD_COMPLEXITY,
     ),
 });
 
@@ -47,7 +48,7 @@ export const signUpUserSchema = userSchema
   })
   .refine((data) => data.password === data.confirm, {
     path: ["confirm"],
-    message: "Passwords do not match.",
+    message: ERRORS.USER.PASSWORDS_MISMATCH,
   });
 
 export const signInUserSchema = userSchema.omit({
@@ -61,21 +62,21 @@ export const updateProfileSchema = z
     username: z
       .string()
       .min(2, {
-        message: "Username must be at least 2 characters.",
+        message: ERRORS.USER.USERNAME_LENGTH,
       })
       .max(30, {
-        message: "Username must not be longer than 30 characters.",
+        message: ERRORS.USER.USERNAME_LENGTH,
       }),
     currentPassword: z
       .string()
-      .min(1, { message: "Current password is required." }),
+      .min(1, { message: ERRORS.GENERAL.FIELD_REQUIRED }),
     newPassword: z
       .union([
         z
           .string()
           .regex(
             PASSWORD_REGEX,
-            "The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).",
+            ERRORS.USER.PASSWORD_COMPLEXITY,
           ),
         z.literal(""),
       ])
@@ -90,7 +91,7 @@ export const updateProfileSchema = z
       if (!hasNewPassword) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "New password is required.",
+          message: ERRORS.GENERAL.FIELD_REQUIRED,
           path: ["newPassword"],
         });
       }
@@ -98,7 +99,7 @@ export const updateProfileSchema = z
       if (!hasConfirm) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Confirm password is required.",
+          message: ERRORS.GENERAL.FIELD_REQUIRED,
           path: ["confirm"],
         });
       }
@@ -106,7 +107,7 @@ export const updateProfileSchema = z
       if (hasNewPassword && hasConfirm && data.newPassword !== data.confirm) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Passwords do not match.",
+          message: ERRORS.USER.PASSWORDS_MISMATCH,
           path: ["confirm"],
         });
       }

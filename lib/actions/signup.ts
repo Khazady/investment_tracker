@@ -1,6 +1,7 @@
 "use server";
 
 import { ROUTES } from "@/lib/constants/routes";
+import { ERRORS } from "@/lib/constants/errors";
 import { getUser } from "@/lib/db-queries/user";
 import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
@@ -30,7 +31,7 @@ export const signup = async (
   if (!validatedFields.success) {
     return {
       fieldErrors: validatedFields.error.flatten().fieldErrors,
-      message: "Invalid data. Failed to Create User.",
+      message: ERRORS.GENERAL.INVALID_DATA,
     };
   }
 
@@ -41,7 +42,7 @@ export const signup = async (
     await connectDB();
     const userFound = await getUser({ email });
     if (userFound) {
-      return { error: "Email already exists!" };
+      return { error: ERRORS.AUTH.EMAIL_EXISTS };
     }
     const username = email.split("@")[0];
     const publicSlug = await generateUniqueSlug(username);
@@ -55,7 +56,7 @@ export const signup = async (
     await newUser.save();
   } catch (error) {
     console.log(error);
-    return { message: "Database Error: Failed to Create User." };
+    return { message: ERRORS.GENERAL.DATABASE };
   }
   const locale = cookieStore.get("locale")?.value;
   redirect(locale ? `/${locale}${ROUTES.AUTH.SIGNIN}` : ROUTES.AUTH.SIGNIN);
