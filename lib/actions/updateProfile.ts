@@ -1,6 +1,7 @@
 "use server";
 
 import { ROUTES } from "@/lib/constants/routes";
+import { ERRORS } from "@/lib/constants/errors";
 import { connectDB } from "@/lib/mongodb";
 import { updateProfileSchema } from "@/lib/schemas/user.schema";
 import User from "@/models/User";
@@ -32,7 +33,7 @@ export async function updateProfile(
   if (!validatedFields.success) {
     return {
       fieldErrors: validatedFields.error.flatten().fieldErrors,
-      message: "Invalid data. Failed to update profile.",
+      message: ERRORS.GENERAL.INVALID_DATA,
     };
   }
 
@@ -41,7 +42,7 @@ export async function updateProfile(
   const userId = cookieStore.get("userId")?.value;
 
   if (!userId) {
-    return { error: "Not authenticated." };
+    return { error: ERRORS.AUTH.NOT_AUTHENTICATED };
   }
 
   try {
@@ -49,13 +50,13 @@ export async function updateProfile(
     const user = await User.findById(userId);
 
     if (!user) {
-      return { error: "User not found" };
+      return { error: ERRORS.AUTH.USER_NOT_FOUND };
     }
 
     const isValidPassword = await user.comparePassword(currentPassword);
 
     if (!isValidPassword) {
-      return { error: "Current password is incorrect." };
+      return { error: ERRORS.AUTH.PASSWORD_INCORRECT };
     }
 
     user.username = username;
@@ -66,7 +67,7 @@ export async function updateProfile(
     await user.save();
   } catch (error) {
     console.error(error);
-    return { message: "Database Error: Failed to update profile." };
+    return { message: ERRORS.GENERAL.DATABASE };
   }
 
   const locale = cookieStore.get("locale")?.value || "";
