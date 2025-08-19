@@ -60,6 +60,7 @@
     "currentPassword": "Current Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm New Password",
-    "save": "Save"
+    "save": "Save",
+    "joined": "Joined"
   }
 }
