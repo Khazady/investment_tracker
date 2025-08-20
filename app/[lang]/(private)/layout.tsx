@@ -1,3 +1,4 @@
+import Image from "@/components/ui/Image/Image";
 import { signout } from "@/lib/actions/signout";
 import { ROUTES } from "@/lib/constants/routes";
 import { getDictionary } from "@/lib/dictionaries/server";
@@ -16,7 +17,19 @@ export default async function PrivateLayout({
   return (
     <header>
       <nav>
-        {user && <Link href={ROUTES.PROFILE}>{user.username}</Link>}
+        {user && (
+          <Link href={ROUTES.PROFILE}>
+            {user.avatarUrl && (
+              <Image
+                src={user.avatarUrl}
+                alt={user.username}
+                size={32}
+                shape="circle"
+              />
+            )}
+            {user.username}
+          </Link>
+        )}
         <form action={signout}>
           <button type="submit">{dict.navigation.signOut}</button>
         </form>

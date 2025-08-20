@@ -1,3 +1,4 @@
+import Image from "@/components/ui/Image/Image";
 import Typography from "@/components/ui/Typography/Typography";
 import { getUser } from "@/lib/db-queries/user";
 import { getDictionary } from "@/lib/dictionaries/server";
@@ -20,6 +21,9 @@ export default async function UserPage({ params }: SlugPageParams) {
 
   return (
     <>
+      {user.avatarUrl && (
+        <Image src={user.avatarUrl} alt={user.username} size={128} />
+      )}
       <Typography align="center" variant="h1">
         {user.username}
       </Typography>
