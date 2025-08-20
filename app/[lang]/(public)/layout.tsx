@@ -1,5 +1,5 @@
-import type { LayoutParams } from "@/lib/types/app";
+import type { LayoutProps } from "@/lib/types/app";
 
-export default function PublicLayout({ children }: LayoutParams) {
+export default function PublicLayout({ children }: LayoutProps) {
   return <div>{children}</div>;
 }

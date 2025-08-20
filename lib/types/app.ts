@@ -4,16 +4,16 @@ import type { Locale } from "../dictionaries/client";
 
 export type Dictionary = typeof en;
 
-export type PageParams = Readonly<{
+export type PageProps = Readonly<{
   params: Promise<{ lang: Locale }>;
 }>;
 
-export type SlugPageParams = PageParams &
+export type SlugPageProps = PageProps &
   Readonly<{
     params: Promise<{ slug: string }>;
   }>;
 
-export type LayoutParams = Readonly<{
+export type LayoutProps = Readonly<{
   params: Promise<{ lang: Locale }>;
   children: ReactNode;
 }>;

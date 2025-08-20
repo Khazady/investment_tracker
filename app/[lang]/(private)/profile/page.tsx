@@ -1,10 +1,10 @@
 import Typography from "@/components/ui/Typography/Typography";
 import { getDictionary } from "@/lib/dictionaries/server";
 import { getCurrentUser } from "@/lib/server/getCurrentUser";
-import type { PageParams } from "@/lib/types/app";
+import type { PageProps } from "@/lib/types/app";
 import ProfileForm from "./_components/ProfileForm";
 
-export default async function ProfilePage({ params }: PageParams) {
+export default async function ProfilePage({ params }: PageProps) {
   const dict = await getDictionary(params);
 
   const user = await getCurrentUser();

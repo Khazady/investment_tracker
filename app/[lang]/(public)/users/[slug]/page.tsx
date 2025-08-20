@@ -3,10 +3,10 @@ import Typography from "@/components/ui/Typography/Typography";
 import { getUser } from "@/lib/db-queries/user";
 import { getDictionary } from "@/lib/dictionaries/server";
 import { connectDB } from "@/lib/mongodb";
-import type { SlugPageParams } from "@/lib/types/app";
+import type { SlugPageProps } from "@/lib/types/app";
 import { formatDate } from "@/lib/utils/formatDate";
 
-export default async function UserPage({ params }: SlugPageParams) {
+export default async function UserPage({ params }: SlugPageProps) {
   const dict = await getDictionary(params);
   const { slug, lang } = await params;
 

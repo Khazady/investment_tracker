@@ -1,7 +1,7 @@
 import { locales } from "@/lib/dictionaries/client";
 import { getDictionary } from "@/lib/dictionaries/server";
 import { fonts } from "@/lib/fonts";
-import type { LayoutParams, PageParams } from "@/lib/types/app";
+import type { LayoutProps, PageProps } from "@/lib/types/app";
 import type { Metadata } from "next";
 import "../../styles/variables.css";
 import "../../styles/globals.css";
@@ -12,7 +12,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PageParams): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const dict = await getDictionary(params);
 
   return {
@@ -27,7 +27,7 @@ export async function generateMetadata({
 export default async function LocaleRootLayout({
   children,
   params,
-}: LayoutParams) {
+}: LayoutProps) {
   return (
     <html lang={(await params).lang}>
       <body className={`${fonts.sans.variable} ${fonts.mono.variable}`}>

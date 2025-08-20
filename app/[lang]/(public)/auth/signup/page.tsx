@@ -1,10 +1,10 @@
 import AuthSwitchLink from "@/app/[lang]/(public)/auth/_components/AuthSwitchLink/AuthSwitchLink";
 import Typography from "@/components/ui/Typography/Typography";
 import { getDictionary } from "@/lib/dictionaries/server";
-import type { PageParams } from "@/lib/types/app";
+import type { PageProps } from "@/lib/types/app";
 import AuthForm from "../_components/AuthForm/AuthForm";
 
-export default async function SignUpPage({ params }: PageParams) {
+export default async function SignUpPage({ params }: PageProps) {
   const dict = await getDictionary(params);
 
   return (

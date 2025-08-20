@@ -3,13 +3,10 @@ import { signout } from "@/lib/actions/signout";
 import { ROUTES } from "@/lib/constants/routes";
 import { getDictionary } from "@/lib/dictionaries/server";
 import { getCurrentUser } from "@/lib/server/getCurrentUser";
-import type { LayoutParams } from "@/lib/types/app";
+import type { LayoutProps } from "@/lib/types/app";
 import Link from "next/link";
 
-export default async function PrivateLayout({
-  children,
-  params,
-}: LayoutParams) {
+export default async function PrivateLayout({ children, params }: LayoutProps) {
   const dict = await getDictionary(params);
 
   const user = await getCurrentUser();
