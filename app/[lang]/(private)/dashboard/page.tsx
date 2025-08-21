@@ -2,6 +2,7 @@ import Typography from "@/components/ui/Typography/Typography";
 import { getDictionary } from "@/lib/dictionaries/server";
 import type { PageProps } from "@/lib/types/app";
 
+// SSG: static dashboard page generated at build time
 export default async function Dashboard({ params }: PageProps) {
   const dict = await getDictionary(params);
 

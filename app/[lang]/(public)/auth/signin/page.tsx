@@ -4,6 +4,7 @@ import { getDictionary } from "@/lib/dictionaries/server";
 import type { PageProps } from "@/lib/types/app";
 import AuthForm from "../_components/AuthForm/AuthForm";
 
+// SSG: static sign-in page generated at build time
 export default async function SignInPage({ params }: PageProps) {
   const dict = await getDictionary(params);
 

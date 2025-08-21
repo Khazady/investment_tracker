@@ -4,6 +4,7 @@ import { getCurrentUser } from "@/lib/server/getCurrentUser";
 import type { PageProps } from "@/lib/types/app";
 import ProfileForm from "./_components/ProfileForm";
 
+// SSR: reads cookies and queries MongoDB on each request
 export default async function ProfilePage({ params }: PageProps) {
   const dict = await getDictionary(params);
 
