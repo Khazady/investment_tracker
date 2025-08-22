@@ -11,9 +11,9 @@ export interface IUser extends Document {
   username: string;
   email: string;
   passwordHash: string;
-  avatarUrl?: string | null;
+  avatarUrl: string | null;
   publicSlug: string;
-  bio?: string | null;
+  bio: string | null;
   createdAt: Date;
   comparePassword(candidate: string): Promise<boolean>;
 }

@@ -1,9 +1,9 @@
-import { EMAIL_REGEX, PASSWORD_REGEX } from "@/lib/constants/regex";
 import { ERRORS } from "@/lib/constants/errors";
+import { EMAIL_REGEX, PASSWORD_REGEX } from "@/lib/constants/regex";
 import { z } from "zod";
 
 const MAX_FILE_SIZE = 50_000_00;
-const ACCEPTED_IMAGE_TYPES = [
+export const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
   "image/jpg",
   "image/png",
@@ -20,28 +20,16 @@ export const userSchema = z.object({
     .max(30, {
       message: ERRORS.USER.USERNAME_LENGTH,
     }),
-  image: z
-    .custom<File>()
-    .refine((file) => file?.name.length > 0, ERRORS.FILE.REQUIRED)
-    .refine(
-      (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-      ERRORS.FILE.TYPE,
-    )
-    .refine((file) => file?.size <= MAX_FILE_SIZE, ERRORS.FILE.SIZE),
+  avatarUrl: z.string().url().nullable(),
   email: z.string().regex(EMAIL_REGEX, ERRORS.USER.EMAIL_FORMAT),
-  password: z
-    .string()
-    .regex(
-      PASSWORD_REGEX,
-      ERRORS.USER.PASSWORD_COMPLEXITY,
-    ),
+  password: z.string().regex(PASSWORD_REGEX, ERRORS.USER.PASSWORD_COMPLEXITY),
 });
 
 export const signUpUserSchema = userSchema
   .omit({
     id: true,
     username: true,
-    image: true,
+    avatarUrl: true,
   })
   .extend({
     confirm: z.string(),
@@ -54,7 +42,7 @@ export const signUpUserSchema = userSchema
 export const signInUserSchema = userSchema.omit({
   id: true,
   username: true,
-  image: true,
+  avatarUrl: true,
 });
 
 export const updateProfileSchema = z
@@ -67,17 +55,20 @@ export const updateProfileSchema = z
       .max(30, {
         message: ERRORS.USER.USERNAME_LENGTH,
       }),
+    image: z
+      .custom<File>()
+      .refine((file) => file?.name.length > 0, ERRORS.FILE.REQUIRED)
+      .refine(
+        (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+        ERRORS.FILE.TYPE,
+      )
+      .refine((file) => file?.size <= MAX_FILE_SIZE, ERRORS.FILE.SIZE),
     currentPassword: z
       .string()
       .min(1, { message: ERRORS.GENERAL.FIELD_REQUIRED }),
     newPassword: z
       .union([
-        z
-          .string()
-          .regex(
-            PASSWORD_REGEX,
-            ERRORS.USER.PASSWORD_COMPLEXITY,
-          ),
+        z.string().regex(PASSWORD_REGEX, ERRORS.USER.PASSWORD_COMPLEXITY),
         z.literal(""),
       ])
       .optional(),

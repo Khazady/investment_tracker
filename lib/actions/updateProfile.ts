@@ -1,18 +1,22 @@
 "use server";
 
-import { ROUTES } from "@/lib/constants/routes";
 import { ERRORS } from "@/lib/constants/errors";
+import { ROUTES } from "@/lib/constants/routes";
 import { connectDB } from "@/lib/mongodb";
 import { updateProfileSchema } from "@/lib/schemas/user.schema";
+import { s3Client, STORAGE_BUCKET, STORAGE_PUBLIC_URL } from "@/lib/storage";
 import User from "@/models/User";
+import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { randomUUID } from "node:crypto";
 
 export interface IUpdateProfileForm {
   error?: string;
   message?: string;
   fieldErrors?: {
     username?: string[];
+    image?: string[];
     currentPassword?: string[];
     newPassword?: string[];
     confirm?: string[];
@@ -25,6 +29,7 @@ export async function updateProfile(
 ): Promise<IUpdateProfileForm> {
   const validatedFields = updateProfileSchema.safeParse({
     username: formData.get("username"),
+    image: formData.get("image"),
     currentPassword: formData.get("currentPassword"),
     newPassword: formData.get("newPassword"),
     confirm: formData.get("confirm"),
@@ -37,7 +42,8 @@ export async function updateProfile(
     };
   }
 
-  const { username, currentPassword, newPassword } = validatedFields.data;
+  const { username, image, currentPassword, newPassword } =
+    validatedFields.data;
   const cookieStore = await cookies();
   const userId = cookieStore.get("userId")?.value;
 
@@ -60,6 +66,23 @@ export async function updateProfile(
     }
 
     user.username = username;
+
+    const arrayBuffer = await image.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const fileKey = `${randomUUID()}-${image.name}`;
+
+    await s3Client.send(
+      new PutObjectCommand({
+        Bucket: STORAGE_BUCKET,
+        Key: fileKey,
+        Body: buffer,
+        ContentType: image.type,
+      }),
+    );
+
+    if (STORAGE_PUBLIC_URL && fileKey) {
+      user.avatarUrl = `${STORAGE_PUBLIC_URL}/${fileKey}`;
+    }
 
     if (newPassword) {
       user.passwordHash = newPassword;

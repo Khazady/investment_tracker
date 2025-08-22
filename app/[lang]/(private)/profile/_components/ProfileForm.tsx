@@ -1,5 +1,6 @@
 "use client";
 
+import AvatarUpload from "@/components/common/AvatarUpload/AvatarUpload";
 import SubmitButton from "@/components/common/SubmitButton/SubmitButton";
 import ErrorMessage from "@/components/ui/ErrorMessage/ErrorMessage";
 import Input from "@/components/ui/Input/Input";
@@ -8,13 +9,12 @@ import {
   updateProfile,
 } from "@/lib/actions/updateProfile";
 import { useDictionary } from "@/lib/hooks/useDictionary";
+import type { IUser } from "@/models/User";
 import { useActionState } from "react";
 import styles from "./ProfileForm.module.css";
 
 interface ProfileFormProps {
-  user: {
-    username: string;
-  };
+  user: Pick<IUser, "username" | "avatarUrl" | "bio">;
 }
 
 const initialState: IUpdateProfileForm = {
@@ -32,6 +32,12 @@ export default function ProfileForm({ user }: ProfileFormProps) {
 
   return (
     <form action={dispatch} className={styles.form}>
+      <AvatarUpload
+        initialUrl={user.avatarUrl}
+        label={dict.profile.avatar}
+        disabled={pending}
+        errors={state.fieldErrors?.image}
+      />
       <Input
         id="username"
         name="username"
@@ -45,6 +51,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
         id="currentPassword"
         name="currentPassword"
         type="password"
+        autoComplete="password"
         label={dict.profile.currentPassword}
         required
         disabled={pending}
@@ -54,6 +61,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
         id="newPassword"
         name="newPassword"
         type="password"
+        autoComplete="new-password"
         label={dict.profile.newPassword}
         disabled={pending}
         errors={state.fieldErrors?.newPassword}
@@ -62,6 +70,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
         id="confirm"
         name="confirm"
         type="password"
+        autoComplete="new-password"
         label={dict.profile.confirmPassword}
         disabled={pending}
         errors={state.fieldErrors?.confirm}

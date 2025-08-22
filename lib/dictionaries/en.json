@@ -61,6 +61,7 @@
     "newPassword": "New Password",
     "confirmPassword": "Confirm New Password",
     "save": "Save",
-    "joined": "Joined"
+    "joined": "Joined",
+    "avatar": "Avatar"
   }
 }
