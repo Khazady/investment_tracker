@@ -27,7 +27,14 @@ export default function AvatarUpload({
 
   return (
     <div>
-      {preview && <Image src={preview} alt={label || "avatar"} size={64} />}
+      {preview && (
+        <Image
+          src={preview}
+          alt={label || "avatar"}
+          size={64}
+          priority={false}
+        />
+      )}
       <Input
         type="file"
         name="image"

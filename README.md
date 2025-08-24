@@ -48,6 +48,5 @@ Create a `.env` file based on `.env.example` and set the following variables:
 - `DATABASE_URI` – your MongoDB connection string.
 - `STORAGE_ACCESS_KEY_ID` and `STORAGE_SECRET_ACCESS_KEY` – credentials for the image storage service.
 - `STORAGE_BUCKET` – bucket where images are stored.
-- `STORAGE_REGION` – bucket region (defaults to `eu-central-1`).
 - `STORAGE_ENDPOINT` – API endpoint for the storage service.
 - `STORAGE_PUBLIC_URL` – base URL used to access uploaded images.

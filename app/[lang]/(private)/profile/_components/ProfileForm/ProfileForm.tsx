@@ -1,5 +1,6 @@
 "use client";
 
+import AvatarUpload from "@/components/common/AvatarUpload/AvatarUpload";
 import SubmitButton from "@/components/common/SubmitButton/SubmitButton";
 import ErrorMessage from "@/components/ui/ErrorMessage/ErrorMessage";
 import Input from "@/components/ui/Input/Input";
@@ -13,7 +14,7 @@ import { useActionState } from "react";
 import styles from "./ProfileForm.module.css";
 
 interface ProfileFormProps {
-  user: Pick<IUser, "username" | "bio">;
+  user: Pick<IUser, "username" | "bio" | "avatarUrl">;
 }
 
 const initialState: IUpdateProfileForm = {
@@ -31,6 +32,12 @@ export default function ProfileForm({ user }: ProfileFormProps) {
 
   return (
     <form action={dispatch} className={styles.form}>
+      <AvatarUpload
+        initialUrl={user.avatarUrl}
+        label={dict.profile.avatar}
+        errors={state.fieldErrors?.image}
+        disabled={pending}
+      />
       <Input
         id="username"
         name="username"

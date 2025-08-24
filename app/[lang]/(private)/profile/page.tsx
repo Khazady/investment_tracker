@@ -24,6 +24,7 @@ export default async function ProfilePage({ params }: PageProps) {
         user={{
           username: user.username,
           bio: user.bio,
+          avatarUrl: user.avatarUrl,
         }}
       />
       <PasswordForm />

@@ -5,10 +5,8 @@ export const STORAGE_BUCKET = process.env.STORAGE_BUCKET as string;
 export const STORAGE_PUBLIC_URL = (
   process.env.STORAGE_PUBLIC_URL || ""
 ).replace(/\/+$/, "");
-const STORAGE_REGION = process.env.STORAGE_REGION || "us-east-1";
 
 export const s3Client = new S3Client({
-  region: STORAGE_REGION,
   endpoint: STORAGE_ENDPOINT,
   credentials: {
     accessKeyId: process.env.STORAGE_ACCESS_KEY_ID as string,

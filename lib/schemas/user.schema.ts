@@ -50,6 +50,15 @@ export const signInUserSchema = z.object({
 
 export const updateProfileSchema = z.object({
   username: userSchema.shape.username,
+  image: z
+    .instanceof(File)
+    .refine((file) => file?.name.length > 0, ERRORS.FILE.REQUIRED)
+    .refine((file) => !file || file.size <= MAX_FILE_SIZE, {
+      message: ERRORS.FILE.SIZE,
+    })
+    .refine((file) => !file || ACCEPTED_IMAGE_TYPES.includes(file.type), {
+      message: ERRORS.FILE.TYPE,
+    }),
 });
 
 export const updatePasswordSchema = z

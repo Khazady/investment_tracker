@@ -1,16 +1,25 @@
 import type { NextConfig } from "next";
 import type { RemotePattern } from "next/dist/shared/lib/image-config";
 
-const storagePublicUrl = process.env.STORAGE_PUBLIC_URL;
+const STORAGE_PUBLIC_URL = process.env.STORAGE_PUBLIC_URL;
+
 const remotePatterns: RemotePattern[] = [];
 
-if (storagePublicUrl) {
-  const { protocol, hostname } = new URL(storagePublicUrl);
-  remotePatterns.push({
-    protocol: protocol.replace(":", "") as "http" | "https",
-    hostname,
-    pathname: "/**",
-  });
+if (STORAGE_PUBLIC_URL) {
+  try {
+    const { protocol, hostname } = new URL(STORAGE_PUBLIC_URL);
+
+    remotePatterns.push({
+      protocol: protocol.replace(":", "") as "http" | "https",
+      hostname,
+      pathname: "/**",
+    });
+  } catch {
+    console.warn(
+      "⚠️ STORAGE_PUBLIC_URL is not a valid URL:",
+      STORAGE_PUBLIC_URL,
+    );
+  }
 }
 
 const nextConfig: NextConfig = {

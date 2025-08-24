@@ -3,9 +3,12 @@
 import { ERRORS } from "@/lib/constants/errors";
 import { ROUTES } from "@/lib/constants/routes";
 import { updateProfileSchema } from "@/lib/schemas/user.schema";
+import { PutObjectCommand } from "@aws-sdk/client-s3";
+import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { getCurrentUser } from "../server/getCurrentUser";
+import { s3Client, STORAGE_BUCKET, STORAGE_PUBLIC_URL } from "../storage";
 
 export interface IUpdateProfileForm {
   error?: string;
@@ -22,6 +25,7 @@ export async function updateProfile(
 ): Promise<IUpdateProfileForm> {
   const validatedFields = updateProfileSchema.safeParse({
     username: formData.get("username"),
+    image: formData.get("image"),
   });
 
   if (!validatedFields.success) {
@@ -31,7 +35,7 @@ export async function updateProfile(
     };
   }
 
-  const { username } = validatedFields.data;
+  const { username, image } = validatedFields.data;
 
   const user = await getCurrentUser();
 
@@ -41,6 +45,21 @@ export async function updateProfile(
 
   try {
     user.username = username;
+
+    if (image) {
+      const arrayBuffer = await image.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const fileKey = `${randomUUID()}-${image.name}`;
+      await s3Client.send(
+        new PutObjectCommand({
+          Bucket: STORAGE_BUCKET,
+          Key: fileKey,
+          Body: buffer,
+          ContentType: image.type,
+        }),
+      );
+      user.avatarUrl = `${STORAGE_PUBLIC_URL}/${fileKey}`;
+    }
 
     await user.save();
   } catch (error) {
