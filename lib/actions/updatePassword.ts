@@ -2,26 +2,29 @@
 
 import { ERRORS } from "@/lib/constants/errors";
 import { ROUTES } from "@/lib/constants/routes";
-import { updateProfileSchema } from "@/lib/schemas/user.schema";
+import { updatePasswordSchema } from "@/lib/schemas/user.schema";
+import { getCurrentUser } from "@/lib/server/getCurrentUser";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { getCurrentUser } from "../server/getCurrentUser";
 
-export interface IUpdateProfileForm {
+export interface IUpdatePasswordForm {
   error?: string;
   message?: string;
   fieldErrors?: {
-    username?: string[];
-    image?: string[];
+    currentPassword?: string[];
+    password?: string[];
+    confirm?: string[];
   };
 }
 
-export async function updateProfile(
-  _prevState: IUpdateProfileForm,
+export async function updatePassword(
+  _prevState: IUpdatePasswordForm,
   formData: FormData,
-): Promise<IUpdateProfileForm> {
-  const validatedFields = updateProfileSchema.safeParse({
-    username: formData.get("username"),
+): Promise<IUpdatePasswordForm> {
+  const validatedFields = updatePasswordSchema.safeParse({
+    currentPassword: formData.get("currentPassword"),
+    password: formData.get("password"),
+    confirm: formData.get("confirm"),
   });
 
   if (!validatedFields.success) {
@@ -31,7 +34,7 @@ export async function updateProfile(
     };
   }
 
-  const { username } = validatedFields.data;
+  const { currentPassword, password } = validatedFields.data;
 
   const user = await getCurrentUser();
 
@@ -40,8 +43,13 @@ export async function updateProfile(
   }
 
   try {
-    user.username = username;
+    const isValidPassword = await user.comparePassword(currentPassword);
 
+    if (!isValidPassword) {
+      return { error: ERRORS.AUTH.PASSWORD_INCORRECT };
+    }
+
+    user.passwordHash = password;
     await user.save();
   } catch (error) {
     console.error(error);
@@ -53,5 +61,5 @@ export async function updateProfile(
   const path = locale ? `/${locale}${ROUTES.PROFILE}` : ROUTES.PROFILE;
   revalidatePath(path);
 
-  return { message: "Profile updated." };
+  return { message: "Password updated." };
 }

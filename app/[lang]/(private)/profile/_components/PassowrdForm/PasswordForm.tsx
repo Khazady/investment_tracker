@@ -1,52 +1,31 @@
 "use client";
 
-import AvatarUpload from "@/components/common/AvatarUpload/AvatarUpload";
 import SubmitButton from "@/components/common/SubmitButton/SubmitButton";
 import ErrorMessage from "@/components/ui/ErrorMessage/ErrorMessage";
 import Input from "@/components/ui/Input/Input";
 import {
-  type IUpdateProfileForm,
-  updateProfile,
-} from "@/lib/actions/updateProfile";
+  type IUpdatePasswordForm,
+  updatePassword,
+} from "@/lib/actions/updatePassword";
 import { useDictionary } from "@/lib/hooks/useDictionary";
-import type { IUser } from "@/models/User";
 import { useActionState } from "react";
-import styles from "./ProfileForm.module.css";
+import styles from "./PasswordForm.module.css";
 
-interface ProfileFormProps {
-  user: Pick<IUser, "username" | "avatarUrl" | "bio">;
-}
-
-const initialState: IUpdateProfileForm = {
+const initialState: IUpdatePasswordForm = {
   error: undefined,
   message: undefined,
   fieldErrors: undefined,
 };
 
-export default function ProfileForm({ user }: ProfileFormProps) {
+export default function PasswordForm() {
   const dict = useDictionary();
   const [state, dispatch, pending] = useActionState(
-    updateProfile,
+    updatePassword,
     initialState,
   );
 
   return (
     <form action={dispatch} className={styles.form}>
-      <AvatarUpload
-        initialUrl={user.avatarUrl}
-        label={dict.profile.avatar}
-        disabled={pending}
-        errors={state.fieldErrors?.image}
-      />
-      <Input
-        id="username"
-        name="username"
-        label={dict.profile.username}
-        defaultValue={user.username}
-        required
-        errors={state.fieldErrors?.username}
-        disabled={pending}
-      />
       <Input
         id="currentPassword"
         name="currentPassword"
@@ -63,15 +42,17 @@ export default function ProfileForm({ user }: ProfileFormProps) {
         type="password"
         autoComplete="new-password"
         label={dict.profile.newPassword}
+        required
         disabled={pending}
-        errors={state.fieldErrors?.newPassword}
+        errors={state.fieldErrors?.password}
       />
       <Input
         id="confirm"
         name="confirm"
         type="password"
-        autoComplete="new-password"
+        autoComplete="confirm-password"
         label={dict.profile.confirmPassword}
+        required
         disabled={pending}
         errors={state.fieldErrors?.confirm}
       />

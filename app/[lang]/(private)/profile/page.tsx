@@ -2,7 +2,8 @@ import Typography from "@/components/ui/Typography/Typography";
 import { getDictionary } from "@/lib/dictionaries/server";
 import { getCurrentUser } from "@/lib/server/getCurrentUser";
 import type { PageProps } from "@/lib/types/app";
-import ProfileForm from "./_components/ProfileForm";
+import PasswordForm from "./_components/PassowrdForm/PasswordForm";
+import ProfileForm from "./_components/ProfileForm/ProfileForm";
 
 // SSR: reads cookies and queries MongoDB on each request
 export default async function ProfilePage({ params }: PageProps) {
@@ -23,9 +24,9 @@ export default async function ProfilePage({ params }: PageProps) {
         user={{
           username: user.username,
           bio: user.bio,
-          avatarUrl: user.avatarUrl,
         }}
       />
+      <PasswordForm />
     </>
   );
 }
