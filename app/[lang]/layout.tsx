@@ -3,8 +3,8 @@ import { getDictionary } from "@/lib/dictionaries/server";
 import { fonts } from "@/lib/fonts";
 import type { LayoutProps, PageProps } from "@/lib/types/app";
 import type { Metadata } from "next";
-import "../../styles/variables.css";
-import "../../styles/globals.css";
+import "@/styles/variables.css";
+import "@/styles/globals.css";
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -24,10 +24,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function LocaleRootLayout({
-  children,
-  params,
-}: LayoutProps) {
+export default async function RootLayout({ children, params }: LayoutProps) {
   return (
     <html lang={(await params).lang}>
       <body className={`${fonts.sans.variable} ${fonts.mono.variable}`}>
