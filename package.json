@@ -9,24 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.872.0",
-    "@formatjs/intl-localematcher": "^0.6.1",
-    "mongoose": "^8.15.1",
-    "negotiator": "^1.0.0",
-    "next": "15.3.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "zod": "^3.25.57"
+    "@aws-sdk/client-s3": "3.873.0",
+    "@formatjs/intl-localematcher": "0.6.1",
+    "mongoose": "8.18.0",
+    "negotiator": "1.0.0",
+    "next": "15.5.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "zod": "4.1.1"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@types/negotiator": "^0.6.4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.3.3",
-    "prettier": "3.5.3",
-    "typescript": "^5"
+    "@eslint/eslintrc": "3.3.1",
+    "@types/negotiator": "0.6.4",
+    "@types/node": "24.3.0",
+    "@types/react": "19.1.11",
+    "@types/react-dom": "19.1.7",
+    "eslint": "9.34.0",
+    "eslint-config-next": "15.5.0",
+    "prettier": "3.6.2",
+    "typescript": "5.9.2"
   }
 }
