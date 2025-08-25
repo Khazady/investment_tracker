@@ -1,5 +1,6 @@
 "use client";
 
+import Form from "@/components/common/Form/Form";
 import SubmitButton from "@/components/common/SubmitButton/SubmitButton";
 import ErrorMessage from "@/components/ui/ErrorMessage/ErrorMessage";
 import Input from "@/components/ui/Input/Input";
@@ -9,7 +10,6 @@ import {
 } from "@/lib/actions/updatePassword";
 import { useDictionary } from "@/lib/hooks/useDictionary";
 import { useActionState } from "react";
-import Form from "@/components/common/Form/Form";
 
 const initialState: IUpdatePasswordForm = {
   error: undefined,
@@ -37,8 +37,8 @@ export default function PasswordForm() {
         errors={state.fieldErrors?.currentPassword}
       />
       <Input
-        id="newPassword"
-        name="newPassword"
+        id="password"
+        name="password"
         type="password"
         autoComplete="new-password"
         label={dict.profile.newPassword}
