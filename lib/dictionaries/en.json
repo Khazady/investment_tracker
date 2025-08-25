@@ -63,5 +63,11 @@
     "save": "Save",
     "joined": "Joined",
     "avatar": "Avatar"
+  },
+  "asset": {
+    "assetNotFound": "Asset not found",
+    "price": "Price",
+    "marketCap": "Market Cap",
+    "sector": "Sector"
   }
 }
