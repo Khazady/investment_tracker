@@ -30,7 +30,7 @@ export function middleware(request: NextRequest) {
   );
 
   if (pathnameHasLocale) {
-    const currentLocale = pathname.split("/")[1];
+    const currentLocale = pathname.split("/")[1] as Locale;
 
     const isPrivate = PRIVATE_ROUTES.some((route) =>
       pathname.startsWith(`/${currentLocale}${route}`),
