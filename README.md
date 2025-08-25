@@ -46,7 +46,11 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 Create a `.env` file based on `.env.example` and set the following variables:
 
 - `DATABASE_URI` – your MongoDB connection string.
+
 - `STORAGE_ACCESS_KEY_ID` and `STORAGE_SECRET_ACCESS_KEY` – credentials for the image storage service.
 - `STORAGE_BUCKET` – bucket where images are stored.
 - `STORAGE_ENDPOINT` – API endpoint for the storage service.
 - `STORAGE_PUBLIC_URL` – base URL used to access uploaded images.
+
+- `CRYPTO_MARKET_API_URL` – base URL for the cryptocurrency market data API.
+- `CRYPTO_MARKET_API_KEY` – optional API key for the crypto market data provider (leave blank for public access).
