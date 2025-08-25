@@ -7,8 +7,8 @@ import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { s3Client, STORAGE_BUCKET, STORAGE_PUBLIC_URL } from "../s3";
 import { getCurrentUser } from "../server/getCurrentUser";
-import { s3Client, STORAGE_BUCKET, STORAGE_PUBLIC_URL } from "../storage";
 
 export interface IUpdateProfileForm {
   error?: string;
