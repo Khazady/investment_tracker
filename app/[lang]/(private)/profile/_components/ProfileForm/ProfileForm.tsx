@@ -11,7 +11,7 @@ import {
 import { useDictionary } from "@/lib/hooks/useDictionary";
 import type { IUser } from "@/models/User";
 import { useActionState } from "react";
-import styles from "./ProfileForm.module.css";
+import Form from "@/components/common/Form/Form";
 
 interface ProfileFormProps {
   user: Pick<IUser, "username" | "bio" | "avatarUrl">;
@@ -31,7 +31,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
   );
 
   return (
-    <form action={dispatch} className={styles.form}>
+    <Form action={dispatch}>
       <AvatarUpload
         initialUrl={user.avatarUrl}
         label={dict.profile.avatar}
@@ -54,6 +54,6 @@ export default function ProfileForm({ user }: ProfileFormProps) {
       )}
 
       <SubmitButton text={dict.profile.save} />
-    </form>
+    </Form>
   );
 }
