@@ -17,3 +17,7 @@ export type LayoutProps = Readonly<{
   params: Promise<{ lang: Locale }>;
   children: ReactNode;
 }>;
+
+export enum ApiSourceEnum {
+  crypto_market = "crypto_market",
+}
