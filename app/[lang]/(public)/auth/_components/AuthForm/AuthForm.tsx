@@ -9,7 +9,7 @@ import type { ISignUpForm } from "@/lib/actions/signup";
 import { signup } from "@/lib/actions/signup";
 import { useDictionary } from "@/lib/hooks/useDictionary";
 import { useActionState } from "react";
-import styles from "./AuthForm.module.css";
+import Form from "@/components/common/Form/Form";
 
 const initialState: ISignUpForm | ISignInForm = {
   error: undefined,
@@ -25,7 +25,7 @@ function AuthForm({ isSignUpPage }: { isSignUpPage: boolean }) {
   );
 
   return (
-    <form action={dispatch} className={styles.form}>
+    <Form action={dispatch}>
       <FormFields isSignUpPage={isSignUpPage} errors={state.fieldErrors} />
 
       {!pending && state.error && <ErrorMessage message={state.error} />}
@@ -34,7 +34,7 @@ function AuthForm({ isSignUpPage }: { isSignUpPage: boolean }) {
       <SubmitButton
         text={isSignUpPage ? dict.auth.signup.submit : dict.auth.signin.submit}
       />
-    </form>
+    </Form>
   );
 }
 

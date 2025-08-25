@@ -9,7 +9,7 @@ import {
 } from "@/lib/actions/updatePassword";
 import { useDictionary } from "@/lib/hooks/useDictionary";
 import { useActionState } from "react";
-import styles from "./PasswordForm.module.css";
+import Form from "@/components/common/Form/Form";
 
 const initialState: IUpdatePasswordForm = {
   error: undefined,
@@ -25,7 +25,7 @@ export default function PasswordForm() {
   );
 
   return (
-    <form action={dispatch} className={styles.form}>
+    <Form action={dispatch}>
       <Input
         id="currentPassword"
         name="currentPassword"
@@ -63,6 +63,6 @@ export default function PasswordForm() {
       )}
 
       <SubmitButton text={dict.profile.save} />
-    </form>
+    </Form>
   );
 }
