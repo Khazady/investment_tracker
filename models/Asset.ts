@@ -4,11 +4,10 @@ import mongoose, { Schema } from "mongoose";
 
 interface AssetMetadata {
   coingeckoId: string;
-  image: {
-    small: string | null;
-  };
+  contractAddress: string;
+  logoUrl: string | null;
 }
-enum AssetTypeEnum {
+export enum AssetTypeEnum {
   crypto = "crypto",
 }
 export interface IAsset extends Document {
@@ -35,6 +34,7 @@ const AssetSchema = new Schema<IAsset>(
     },
     metadata: {
       coingeckoId: { type: String, required: true },
+      contractAddress: { type: String, required: true },
       logoUrl: { type: String, default: null },
     },
   },

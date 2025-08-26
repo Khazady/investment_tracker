@@ -14,5 +14,5 @@ export default async function AssetPage({ params }: SlugPageProps) {
     return <Typography variant="body">{dict.asset.assetNotFound}</Typography>;
   }
 
-  return <AssetCard asset={asset} />;
+  return <AssetCard asset={asset} dict={dict} />;
 }

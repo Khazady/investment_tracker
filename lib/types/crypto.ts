@@ -1,13 +1,10 @@
-export interface CryptoAssetDTO {
-  id: string;
-  symbol: string;
-  name: string;
-  logoUrl: string;
-  priceUsd: number;
-  marketCapUsd: number;
-  sector: string | null;
+import type { IAsset } from "@/models/Asset";
+
+export interface CryptoAssetDTO extends IAsset {
+  priceUsd: number | null;
+  marketCapUsd: number | null;
 }
 
-export interface CryptoService {
+export interface CryptoClient {
   getAsset(slug: string): Promise<CryptoAssetDTO | null>;
 }

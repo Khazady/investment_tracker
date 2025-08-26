@@ -54,3 +54,4 @@ Create a `.env` file based on `.env.example` and set the following variables:
 
 - `CRYPTO_MARKET_API_URL` – base URL for the cryptocurrency market data API.
 - `CRYPTO_MARKET_API_KEY` – optional API key for the crypto market data provider (leave blank for public access).
+- `CRYPTO_MARKET_IMAGE_URL` – base URL for the cryptocurrency images.
