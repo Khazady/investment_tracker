@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/lib/utils/dom";
 import type { ElementType, ForwardedRef, HTMLAttributes, JSX } from "react";
 import { forwardRef } from "react";
 import styles from "./Typography.module.css";

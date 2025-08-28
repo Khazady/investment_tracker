@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/lib/utils/dom";
 import React from "react";
 import styles from "./Button.module.css";
 

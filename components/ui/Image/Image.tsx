@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/lib/utils/dom";
 import NextImage, { type ImageProps } from "next/image";
 import styles from "./Image.module.css";
 

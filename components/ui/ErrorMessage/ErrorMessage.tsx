@@ -2,7 +2,7 @@ import Typography, {
   type TypographyColor,
 } from "@/components/ui/Typography/Typography";
 
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/lib/utils/dom";
 import type { HTMLAttributes } from "react";
 import styles from "./ErrorMessage.module.css";
 

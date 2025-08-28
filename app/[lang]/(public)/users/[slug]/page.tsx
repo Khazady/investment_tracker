@@ -4,7 +4,7 @@ import { getUser } from "@/lib/db-queries/user";
 import { getDictionary } from "@/lib/dictionaries/server";
 import { connectDB } from "@/lib/mongodb";
 import type { SlugPageProps } from "@/lib/types/app";
-import { formatDate } from "@/lib/utils/formatDate";
+import { formatDate } from "@/lib/utils/date";
 
 // SSR: fetches user data from MongoDB on each request
 export default async function UserPage({ params }: SlugPageProps) {

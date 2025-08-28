@@ -3,7 +3,7 @@
 import { Errors } from "@/components/ui/ErrorMessage/ErrorMessage";
 import Typography from "@/components/ui/Typography/Typography";
 
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/lib/utils/dom";
 import type { InputHTMLAttributes } from "react";
 import { forwardRef, useId } from "react";
 import styles from "./Input.module.css";

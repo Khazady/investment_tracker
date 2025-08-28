@@ -1,5 +1,4 @@
-import { hashPassword } from "@/lib/utils/hashPassword";
-import { verifyPassword } from "@/lib/utils/verifyPassword";
+import { hashPassword, verifyPassword } from "@/lib/utils/security";
 import type {
   CallbackWithoutResultAndOptionalError,
   Document,
