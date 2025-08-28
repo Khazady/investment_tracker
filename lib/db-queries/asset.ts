@@ -12,11 +12,8 @@ export async function getAssetBySlug(slug: string) {
 
 export async function saveAsset(data: IAsset) {
   try {
-    return await Asset.findOneAndUpdate(
-      { slug: data.slug },
-      { $set: data },
-      { upsert: true, new: true },
-    );
+    const newAsset = new Asset(data);
+    await newAsset.save();
   } catch (error) {
     console.error("Failed to upsert asset:", error);
     throw new Error(ERRORS.GENERAL.DATABASE);

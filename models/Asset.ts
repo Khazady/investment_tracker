@@ -4,7 +4,6 @@ import mongoose, { Schema } from "mongoose";
 
 interface AssetMetadata {
   coingeckoId: string;
-  contractAddress: string;
   logoUrl: string | null;
 }
 export enum AssetTypeEnum {
@@ -34,12 +33,20 @@ const AssetSchema = new Schema<IAsset>(
     },
     metadata: {
       coingeckoId: { type: String, required: true },
-      contractAddress: { type: String, required: true },
       logoUrl: { type: String, default: null },
+    },
+    createdAt: {
+      type: Date,
+      required: true,
+      default: () => new Date(),
+    },
+    updatedAt: {
+      type: Date,
+      required: true,
+      default: () => new Date(),
     },
   },
   {
-    timestamps: true,
     versionKey: false,
     strict: "throw",
   },

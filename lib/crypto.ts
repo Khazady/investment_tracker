@@ -1,60 +1,74 @@
 import { getAssetBySlug, saveAsset } from "@/lib/db-queries/asset";
 import { connectDB } from "@/lib/mongodb";
 import { ApiSourceEnum } from "@/lib/types/app";
+import { omit } from "@/lib/utils/object";
 import { AssetTypeEnum } from "@/models/Asset";
 import type { CryptoAssetDTO, CryptoClient } from "./types/crypto";
 
 const CRYPTO_MARKET_API_URL = process.env.CRYPTO_MARKET_API_URL as string;
 const CRYPTO_MARKET_API_KEY = process.env.CRYPTO_MARKET_API_KEY as string;
-const CACHE_TTL_MS = 1000 * 60 * 5; // 5 minutes
 
-async function fetchCoinData(id: string): Promise<CryptoAssetDTO | null> {
+async function fetchCoinSnapshot(
+  id: string,
+): Promise<Omit<CryptoAssetDTO, "createdAt" | "updatedAt"> | null> {
+  const url =
+    `${CRYPTO_MARKET_API_URL}/coins/markets` +
+    `?vs_currency=usd&ids=${encodeURIComponent(id)}`;
+
   try {
-    const res = await fetch(`${CRYPTO_MARKET_API_URL}/coins/${id}`, {
+    const res = await fetch(url, {
       next: { revalidate: 60 },
       headers: { "x-cg-demo-api-key": CRYPTO_MARKET_API_KEY },
     });
 
     if (!res.ok) return null;
-    const data = await res.json();
+
+    const [data]: Array<{
+      id: string;
+      symbol: string;
+      name: string;
+      image?: string;
+      current_price?: number;
+      market_cap?: number;
+    }> = await res.json();
+
     return {
       type: AssetTypeEnum.crypto,
       symbol: data.symbol,
-      slug: data.web_slug,
+      slug: data.id,
       name: data.name,
       apiSource: ApiSourceEnum.crypto_market,
       metadata: {
         coingeckoId: data.id,
-        contractAddress: data.detail_platforms?.contract_address,
-        logoUrl: data.image?.small || null,
+        logoUrl: data.image ?? null,
       },
-      priceUsd: data.market_data?.current_price?.usd ?? null,
-      marketCapUsd: data.market_data?.market_cap?.usd ?? null,
+      priceUsd: data.current_price ?? null,
+      marketCapUsd: data.market_cap ?? null,
     };
   } catch (error) {
-    console.error("Failed to fetch asset from CoinGecko", error);
+    console.error("Failed to fetch coin snapshot", error);
     return null;
   }
 }
 
 async function fetchCoinPrice(
   id: string,
-  contractAddress: string,
 ): Promise<Pick<CryptoAssetDTO, "priceUsd" | "marketCapUsd"> | null> {
   try {
-    const res = await fetch(
-      `${CRYPTO_MARKET_API_URL}/simple/token_price/${id}?contract_addresses${contractAddress}&vs_currencies=usd`,
-      {
-        next: { revalidate: 15 },
-        headers: { "x-cg-demo-api-key": CRYPTO_MARKET_API_KEY },
-      },
-    );
+    const url = `${CRYPTO_MARKET_API_URL}/simple/price?vs_currencies=${encodeURIComponent(id)}`;
+
+    const res = await fetch(url, {
+      next: { revalidate: 15 },
+      headers: { "x-cg-demo-api-key": CRYPTO_MARKET_API_KEY },
+    });
 
     if (!res.ok) return null;
+
     const data = await res.json();
+
     return {
-      priceUsd: data[contractAddress].usd,
-      marketCapUsd: data[contractAddress].usd_market_cap,
+      priceUsd: data[id].usd,
+      marketCapUsd: data[id].usd_market_cap,
     };
   } catch (error) {
     console.error("Failed to fetch price of asset from CoinGecko", error);
@@ -66,25 +80,24 @@ class CryptoMarketDataClient implements CryptoClient {
   async getAsset(slug: string): Promise<CryptoAssetDTO | null> {
     await connectDB();
     const asset = await getAssetBySlug(slug);
-    const now = Date.now();
-    const isSaved = !!asset;
-    const isStale = asset && now - asset.updatedAt.getTime() > CACHE_TTL_MS;
-
-    console.log(isSaved, isStale);
-    if (!isSaved) {
-      const dto = await fetchCoinData(slug);
+    if (!asset) {
+      const dto = await fetchCoinSnapshot(slug);
       if (!dto) return null;
 
-      const { priceUsd, marketCapUsd, ...rest } = dto;
+      const rest = omit(dto, ["priceUsd", "marketCapUsd"]);
+
       saveAsset(rest);
       return dto;
     }
-    if (isStale) {
-      const price = await fetchCoinPrice(slug, asset.metadata.contractAddress);
-      return { ...asset, ...price };
-    }
 
-    return null;
+    const price = await fetchCoinPrice(asset.metadata.coingeckoId);
+
+    if (!price) return null;
+
+    return {
+      ...(typeof asset.toObject === "function" ? asset.toObject() : asset),
+      ...price,
+    };
   }
 }
 
